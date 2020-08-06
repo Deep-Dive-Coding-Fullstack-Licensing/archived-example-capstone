@@ -1,6 +1,7 @@
 import express, {Application, Errback, ErrorRequestHandler, NextFunction, Request, Response} from 'express';
 import TweetRoute from './routes/tweet.route';
 import SignupRoute from './routes/signup.route';
+import LikeRoute from './routes/like.route';
 import morgan from 'morgan';
 
 // Routes
@@ -52,15 +53,7 @@ export class App {
       this.app.use(session(sessionConfig));
       this.app.use(passport.initialize());
       this.app.use(passport.session());
-      this.app.use(csrf({cookie:false}));
-      this.app.use(function (error: any, request : Request, response : Response, next: NextFunction ) {
-        if (error.code !== 'EBADCSRFTOKEN') return next(error)
 
-        // handle CSRF token errors here
-        response.status(403)
-
-        return response.json({status: 403, message: "xsrf is invalid"})
-      })
     }
 
     // private method for setting up routes in their basic sense (ie. any route that performs an action on profiles starts with /profiles)
@@ -70,6 +63,7 @@ export class App {
     this.app.use('/apis/sign-in', SignInRouter);
     this.app.use("/apis/sign-out", SignOutRoute);
     this.app.use('/apis/sign-up', SignupRoute);
+    this.app.use('/apis/like', LikeRoute);
 
   }
 

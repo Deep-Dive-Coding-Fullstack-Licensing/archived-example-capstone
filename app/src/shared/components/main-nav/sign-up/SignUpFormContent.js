@@ -29,7 +29,7 @@ export const SignUpFormContent = (props) => {
 						</div>
 						<input
 							className="form-control"
-							id="profileEmail"
+							name="profileEmail"
 							type="email"
 							value={values.profileEmail}
 							placeholder="Enter email"
@@ -57,7 +57,7 @@ export const SignUpFormContent = (props) => {
 							</div>
 						</div>
 						<input
-							id="profilePassword"
+							name="profilePassword"
 							className="form-control"
 							type="password"
 							placeholder="Password"
@@ -82,7 +82,7 @@ export const SignUpFormContent = (props) => {
 
 							className="form-control"
 							type="password"
-							id="profilePasswordConfirm"
+							name="profilePasswordConfirm"
 							placeholder="Password Confirm"
 							value={values.profilePasswordConfirm}
 							onChange={handleChange}
@@ -105,7 +105,7 @@ export const SignUpFormContent = (props) => {
 						</div>
 						<input
 							className="form-control"
-							id="profileHandle"
+							name="profileAtHandle"
 							type="text"
 							value={values.profileAtHandle}
 							placeholder="@Handle"
@@ -134,7 +134,7 @@ export const SignUpFormContent = (props) => {
 						</div>
 						<input
 							className="form-control"
-							id="profilePhone"
+							name="profilePhone"
 							type="text"
 							value={values.profilePhone}
 							placeholder="Enter email"

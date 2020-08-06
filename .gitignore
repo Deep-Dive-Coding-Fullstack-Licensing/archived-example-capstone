@@ -25,3 +25,5 @@
 
 */.env
 /.env
+
+/app/src/setupProxy.js

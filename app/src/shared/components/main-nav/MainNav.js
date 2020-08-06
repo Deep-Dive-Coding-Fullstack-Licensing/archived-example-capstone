@@ -4,14 +4,16 @@ import Nav from "react-bootstrap/Nav";
 import {LinkContainer} from "react-router-bootstrap"
 import {SignUpModal} from "./sign-up/SignUpModal";
 import {SignInModal} from "./sign-in/SigninModal";
+import {Container} from "react-bootstrap";
 
 
 
 export const MainNav = (props) => {
 	return(
 		<Navbar bg="primary" variant="dark">
+			<Container>
 			<LinkContainer exact to="/" >
-				<Navbar.Brand>Navbar</Navbar.Brand>
+				<Navbar.Brand>Tweeter</Navbar.Brand>
 			</LinkContainer>
 			<Nav className="mr-auto">
 				<LinkContainer exact to="/profile">
@@ -23,6 +25,7 @@ export const MainNav = (props) => {
 				<SignUpModal/>
 				<SignInModal/>
 			</Nav>
+			</Container>
 		</Navbar>
 	)
 };

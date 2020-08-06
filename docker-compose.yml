@@ -4,21 +4,26 @@ services:
   sql:
     build: ./sql
     volumes:
-      - ddc-twitter:/var/lib/mysql
+      - tweeter:/var/lib/mysql
     env_file:
       - ./.env
     command: --default-authentication-plugin=mysql_native_password
+  app:
+    build: ./app
+    depends_on:
+      - node
     ports:
-      - 3306:3306
+      - 81:80
   node:
-    build: ./backend
+    build: ./apis
     env_file:
       - .env
     ports:
-      - 8080:5000
+      - 8080:4200
     user: "node"
     volumes:
-      - ./backend/src:/home/node/app/src
-      - ./backend/tsconfig.json:/home/node/app/tsconfig.json
+      - ./apis/src:/home/node/app/src
+      - ./apis/utils:/home/node/app/utils/
+      - ./apis/tsconfig.json:/home/node/app/tsconfig.json
 volumes:
-  ddc-twitter:
+  tweeter:

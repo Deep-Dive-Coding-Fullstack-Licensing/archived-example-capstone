@@ -1,7 +1,9 @@
 import React, {useEffect} from 'react';
 import {useSelector, useDispatch} from "react-redux";
 import {getAllTweets} from "../../shared/actions/tweet";
-import Card from "react-bootstrap/Card";
+import {TweetCard} from "../../shared/components/tweetCard/TweetCard";
+import {TweetForm} from "../../shared/components/tweetForm/TweetForm";
+import {Container} from "react-bootstrap"
 
 export const Home = () => {
 
@@ -14,26 +16,15 @@ export const Home = () => {
 
 	const inputs = [];
 
-	useEffect(effects,inputs);
+	useEffect(effects, inputs);
 
 	return (
 		<>
-			{tweets.map(tweet => {
-				return(
-				<Card style={{ width: '18rem' }} key={tweet.tweetId}>
-				<Card.Img variant="top" src={tweet.profileAvatarUrl} />
-				<Card.Body>
-					<Card.Text>{tweet.profileAtHandle}</Card.Text>
-					<Card.Text>{new Date(tweet.tweetDate).toDateString()}</Card.Text>
-					<Card.Text>
-						{tweet.tweetContent}
-					</Card.Text>
-				</Card.Body>
-			</Card>)
-			})}
+			<Container>
+			<TweetForm/>
+			{tweets.map(tweet => <TweetCard tweet={tweet}/>)}
+			</Container>
 		</>
-
-
 	)
 };
 

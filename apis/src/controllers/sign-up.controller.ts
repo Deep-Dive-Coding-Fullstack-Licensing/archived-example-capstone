@@ -13,7 +13,9 @@ export async function signupProfile (request: Request, response: Response) {
   try {
     validationResult(request).throw();
 
-    const { profileAtHandle, profileAvatarUrl, profileEmail, profilePhone, profilePassword } = request.body;
+    const { profileAtHandle, profileEmail, profilePhone, profilePassword } = request.body;
+
+    const profileAvatarUrl = "http://placeholder.jpg"
 
     const mysqlConnection = await connect();
 
