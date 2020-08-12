@@ -3,7 +3,6 @@ module.exports = function(app) {
 	app.use(proxy('/apis', {
 			logLevel: 'debug',
 			target: "http://localhost:8080/",
-			// target: "http://uss-hopper.site:8081/",
 			changeOrigin: true,
 		}
 	));

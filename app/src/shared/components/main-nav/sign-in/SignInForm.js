@@ -1,12 +1,17 @@
 import React from 'react';
 import {httpConfig} from "../../../utils/http-config";
-import {Formik} from "formik/dist/index";
+import {Formik} from "formik";
 import * as Yup from "yup";
 import {SignInFormContent} from "./SignInFormContent";
+import {getAuth} from "../../../actions/auth";
+import {useDispatch} from "react-redux";
 
 
 
 export const SignInForm = () => {
+
+	const dispatch = useDispatch()
+
 	const validator = Yup.object().shape({
 		profileEmail: Yup.string()
 			.email("email must be a valid email")
@@ -28,11 +33,14 @@ export const SignInForm = () => {
 			.then(reply => {
 				let {message, type} = reply;
 				setStatus({message, type});
-				if(reply.status === 200 && reply.headers["x-jwt-token"]) {
-					window.localStorage.removeItem("jwt-token");
-					window.localStorage.setItem("jwt-token", reply.headers["x-jwt-token"]);
+				if(reply.status === 200 && reply.headers["authorization"]) {
+					window.localStorage.removeItem("authorization");
+					window.localStorage.setItem("authorization", reply.headers["authorization"]);
 					resetForm();
+					dispatch(getAuth())
+					// window.location = "/";
 				}
+				setStatus({message, type});
 			});
 	};
 

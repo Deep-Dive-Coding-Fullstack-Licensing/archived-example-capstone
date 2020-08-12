@@ -35,7 +35,7 @@ export const TweetCard = ({tweet}) => {
 	}
 
 	return (
-		<div key={tweet.tweetId}>
+		<div>
 			<Row>
 				<Col xs={1}>
 			<Image src={tweet.profileAvatarUrl} roundedCircle fluid/>

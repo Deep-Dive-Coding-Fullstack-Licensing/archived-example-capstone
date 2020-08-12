@@ -18,7 +18,8 @@ export const signupValidator = {
     isEmail: {
       errorMessage: 'Please provide a valid email'
     },
-    normalizeEmail: true,
+    // Uncomment the next line to sanitize email, but it removes +1 from testing email addresses.
+    // normalizeEmail: true,
     trim: true
   },
   profilePassword: {

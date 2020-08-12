@@ -1,6 +1,5 @@
 import { Router } from 'express';
 import { asyncValidator } from '../lib/asyncValidator';
-import { signupProfile } from '../controllers/sign-up.controller';
 import { signInValidator } from '../validators/sign-in.validator';
 import {signIn} from "../controllers/sign-in.controller";
 

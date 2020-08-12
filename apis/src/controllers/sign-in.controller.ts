@@ -21,12 +21,12 @@ export async function signIn(request: Request, response: Response, nextFunction:
       {session: false},
       async (err: any, passportUser: Profile) => {
 
-        const {profileId, profileEmail} = passportUser;
+        const {profileId, profileEmail, profileAtHandle} = passportUser;
 
         const signature : string = uuid();
 
 
-        const authorization : string = generateJwt({profileId, profileEmail}, signature);
+        const authorization : string = generateJwt({profileId, profileEmail, profileAtHandle}, signature);
 
         const signInSuccessful = () => {
 

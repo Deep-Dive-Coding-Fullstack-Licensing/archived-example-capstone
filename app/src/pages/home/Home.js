@@ -22,7 +22,7 @@ export const Home = () => {
 		<>
 			<Container>
 			<TweetForm/>
-			{tweets.map(tweet => <TweetCard tweet={tweet}/>)}
+			{tweets.map(tweet => <TweetCard tweet={tweet} key={tweet.tweetId}/>)}
 			</Container>
 		</>
 	)
