@@ -1,4 +1,4 @@
-import {Request, Response} from 'express';
+import {NextFunction, Request, Response} from 'express';
 
 // Interfaces (represent the DB model and types of the columns associated with a specific DB table)
 import {Tweet} from '../../utils/interfaces/Tweet';
@@ -6,11 +6,11 @@ import {Status} from '../interfaces/Status';
 import {Profile} from "../interfaces/Profile";
 import {insertTweet} from "../../utils/tweet/insertTweet"
 import {selectAllTweets} from "../../utils/tweet/selectAllTweets";
+import {selectTweetsByTweetProfileId} from "../../utils/tweet/selectTweetsByTweetProfileId";
 
 const {validationResult} = require('express-validator');
 
 export async function getAllTweets(request: Request, response: Response): Promise<Response | void> {
-
 
 	try {
 
@@ -23,6 +23,12 @@ export async function getAllTweets(request: Request, response: Response): Promis
 	} catch(error) {
 		console.log(error);
 	}
+}
+
+export async function getTweetByTweetProfileId(request : Request, response: Response, nextFunction: NextFunction){
+  const 	{tweetProfileId} = request.params
+	const data  = await selectTweetsByTweetProfileId(tweetProfileId)
+	return response.json({status:200, message: null, data})
 }
 
 export async function postTweet(request: Request, response: Response) {

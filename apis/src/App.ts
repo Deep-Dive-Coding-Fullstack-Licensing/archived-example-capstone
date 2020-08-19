@@ -14,7 +14,6 @@ import {SignOutRoute} from "./routes/sign-out.route";
 const MemoryStore = require('memorystore')(session);
 import csrf from "csurf";
 
-
 // The following class creates the app and instantiates the server
 export class App {
     app: Application;
@@ -22,6 +21,7 @@ export class App {
     constructor (
         private port?: number | string
     ) {
+
       passportMiddleware; // eslint-disable-line
       this.app = express();
       this.settings();
