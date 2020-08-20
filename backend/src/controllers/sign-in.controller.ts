@@ -2,16 +2,14 @@ import {NextFunction, Response, Request} from 'express';
 import  "express-session";
 import {generateJwt, validatePassword} from "../lib/auth.utils";
 import {Profile} from "../../utils/interfaces/Profile";
-
 const passport = require("passport");
 import uuid from "uuid";
-const {validationResult} = require('express-validator');
+
 
 
 export async function signIn(request: Request, response: Response, nextFunction: NextFunction) {
 
   try {
-    validationResult(request).throw();
 
     const {profilePassword} = request.body;
 

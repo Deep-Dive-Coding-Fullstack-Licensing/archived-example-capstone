@@ -11,8 +11,6 @@ const { validationResult } = require('express-validator');
 
 export async function signupProfile (request: Request, response: Response) {
   try {
-    validationResult(request).throw();
-
     const { profileAtHandle, profileEmail, profilePhone, profilePassword } = request.body;
 
     const profileAvatarUrl = "http://placeholder.jpg"

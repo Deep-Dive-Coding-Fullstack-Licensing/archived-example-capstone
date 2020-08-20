@@ -15,5 +15,4 @@ export const tweetValidator = {
   tweetDate: {
     toDate: true
   }
-
 };
