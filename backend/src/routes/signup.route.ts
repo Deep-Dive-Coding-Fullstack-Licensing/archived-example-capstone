@@ -1,13 +1,16 @@
 import { Router } from 'express';
-import { signupProfile } from '../controllers/sign-up.controller';
+import { signupProfileController } from '../controllers/sign-up.controller';
 import { signupValidator } from '../validators/signup.validator';
-import { asyncValidator } from '../lib/asyncValidator';
+import { asyncValidatorController } from '../controllers/asyncValidator.controller';
+import {activationController} from "../controllers/activation.controller";
+import {param} from "express-validator";
 
 const { checkSchema } = require('express-validator');
 
 const router = Router();
 
 router.route('/')
-  .post(asyncValidator(checkSchema(signupValidator)), signupProfile);
+  .post(asyncValidatorController(checkSchema(signupValidator)), signupProfileController);
+router.route('/activation/:activation').get(asyncValidatorController([param("activation", "invalid activation link").isHexadecimal().notEmpty()]), activationController)
 
 export default router;

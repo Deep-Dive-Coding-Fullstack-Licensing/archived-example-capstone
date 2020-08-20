@@ -12,7 +12,7 @@ import {insertLike} from "../../utils/like/insertLike";
 
 const {validationResult} = require('express-validator');
 
-export async function toggleLike(request: Request, response: Response) {
+export async function toggleLikeController(request: Request, response: Response) {
 
 	try {
 		validationResult(request).throw();
