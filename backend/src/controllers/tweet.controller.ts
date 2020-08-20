@@ -10,7 +10,7 @@ import {selectTweetsByTweetProfileId} from "../../utils/tweet/selectTweetByTweet
 
 const {validationResult} = require('express-validator');
 
-export async function getAllTweets(request: Request, response: Response): Promise<Response | void> {
+export async function getAllTweetsController(request: Request, response: Response): Promise<Response | void> {
 
 
 	try {
@@ -26,7 +26,7 @@ export async function getAllTweets(request: Request, response: Response): Promis
 	}
 }
 
-export async function getTweetByTweetProfileId(request : Request, response: Response, nextFunction: NextFunction){
+export async function getTweetByTweetProfileIdController(request : Request, response: Response, nextFunction: NextFunction){
 	const     {tweetProfileId} = request.params
 	const data  = await selectTweetsByTweetProfileId(tweetProfileId)
 	return response.json({status:200, message: null, data})

@@ -1,29 +1,41 @@
-import { Request, Response } from 'express';
-
+import {Request, Response} from 'express';
 // DB
-import { connect } from '../database';
+import {setActivationToken, setHash} from '../../utils/auth.utils';
+import {Profile} from "../../utils/interfaces/Profile";
+import {Status} from "../../utils/interfaces/Status";
+import MailComposer from "nodemailer/lib/mail-composer";
+import {insertProfile} from "../../utils/profile/insertProfile";
+
+const mailgun = require("mailgun-js")
+
 // Interfaces (represent the DB model and types of the columns associated with a specific DB table)
-import { Profile } from '../../utils/interfaces/Profile';
-import { Status } from '../../utils/interfaces/Status';
-import { setActivationToken, setHash } from '../lib/auth.utils';
 
-const { validationResult } = require('express-validator');
 
-export async function signupProfile (request: Request, response: Response) {
+export async function signupProfileController(request: Request, response: Response) {
   try {
-    validationResult(request).throw();
 
-    const { profileAtHandle, profileEmail, profilePhone, profilePassword } = request.body;
 
-    const profileAvatarUrl = "http://placeholder.jpg"
-
-    const mysqlConnection = await connect();
-
+    const {profileAtHandle, profileEmail, profilePhone, profilePassword} = request.body;
     const profileHash = await setHash(profilePassword);
-
     const profileActivationToken = setActivationToken();
+    const profileAvatarUrl = "http://www.fillmurray.com/100/150"
+    const basePath = `${request.protocol}://${request.get('host')}${request.originalUrl}activation/${profileActivationToken}`
+    console.log(profileActivationToken)
 
-    const profile : Profile = {
+    const message = `<h2>Welcome to DDCTwitter.</h2>
+<p>In order to start posting tweets of cats you must confirm your account </p>
+<p><a href="${basePath}">${basePath}</a></p>
+`
+
+    const mailgunMessage = {
+      from: `Mailgun Sandbox <postmaster@${process.env.MAILGUN_DOMAIN}>`,
+      to: profileEmail,
+      subject: "One step closer to Sticky Head -- Account Activation",
+      text: 'Test email text',
+      html: message
+    }
+
+    const profile: Profile = {
       profileId: null,
       profileActivationToken,
       profileAtHandle,
@@ -33,18 +45,37 @@ export async function signupProfile (request: Request, response: Response) {
       profilePhone
     };
 
-    const query : string = 'INSERT INTO profile(profileId, profileActivationToken, profileAtHandle, profileAvatarUrl,  profileEmail, profileHash, profilePhone ) VALUES (UUID_TO_BIN(UUID()) , :profileActivationToken, :profileAtHandle, :profileAvatarUrl, :profileEmail, :profileHash, :profilePhone)';
+    const result = await insertProfile(profile)
 
-    await mysqlConnection.execute(query, profile);
-    const status: Status = {
-      status: 200,
-      message: 'Profile Successfully Created',
-      data: null
-    };
+    const emailComposer: MailComposer = new MailComposer(mailgunMessage)
 
-    return response.json(status);
+    emailComposer.compile().build((error: any, message: Buffer) => {
+      const mg = mailgun({apiKey: process.env.MAILGUN_API_KEY, domain: process.env.MAILGUN_DOMAIN});
+
+      console.log(message.toString("ascii"))
+      const compiledEmail = {
+        to: profileEmail,
+        message: message.toString("ascii")
+      }
+
+      const status: Status = {
+        status: 200,
+        message: "Profile successfully created please check your email.",
+        data: null
+      };
+      mg.messages().sendMime(compiledEmail, (sendError: any, body: any) => {
+        if (sendError) {
+          console.log(sendError);
+          return;
+        }
+        return response.json(status);
+      });
+
+
+    })
+
   } catch (error) {
-    const status : Status = {
+    const status: Status = {
       status: 400,
       message: error.message,
       data: null

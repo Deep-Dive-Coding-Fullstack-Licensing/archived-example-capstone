@@ -1,7 +1,7 @@
 import { Request, Response, NextFunction } from 'express';
 const { validationResult } = require('express-validator');
 
-export const asyncValidator = (validations : any) => {
+export const asyncValidatorController = (validations : any) => {
   return async (request: Request, response: Response, next: NextFunction) => {
     await Promise.all(validations.map((validation : any) => validation.run(request)));
 

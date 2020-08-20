@@ -1,17 +1,16 @@
-import {NextFunction, Response, Request} from 'express';
-import  "express-session";
-import {generateJwt, validatePassword} from "../lib/auth.utils";
-import {Profile} from "../../utils/interfaces/Profile";
+import {NextFunction, Request, Response} from 'express';
+import "express-session";
+import passport from 'passport';
+import passportLocal, {Strategy} from 'passport-local';
 
-const passport = require("passport");
 import uuid from "uuid";
-const {validationResult} = require('express-validator');
+import {generateJwt, validatePassword} from "../../utils/auth.utils";
+import {Profile} from "../../utils/interfaces/Profile";
+import {selectProfileByProfileEmail} from "../../utils/profile/selectProfileByProfileEmail";
 
-
-export async function signIn(request: Request, response: Response, nextFunction: NextFunction) {
+export async function signInController(request: Request, response: Response, nextFunction: NextFunction) {
 
   try {
-    validationResult(request).throw();
 
     const {profilePassword} = request.body;
 
@@ -20,15 +19,24 @@ export async function signIn(request: Request, response: Response, nextFunction:
       'local',
       {session: false},
       async (err: any, passportUser: Profile) => {
+        console.log(passportUser)
+        const {profileId, profileEmail} = passportUser;
+        const signature: string = uuid();
+        const authorization: string = generateJwt({profileId, profileEmail}, signature);
 
-        const {profileId, profileEmail, profileAtHandle} = passportUser;
 
-        const signature : string = uuid();
-
-
-        const authorization : string = generateJwt({profileId, profileEmail, profileAtHandle}, signature);
+        const signInFailed = (message: string) => response.json({
+          status: 400,
+          data: null,
+          message
+        });
 
         const signInSuccessful = () => {
+
+          // commented out for testing purposes
+          // if(passportUser.profileActivationToken !== null) {
+          // 	signInFailed("please activate your account")
+          // }
 
           if (request.session) {
             request.session.profile = passportUser;
@@ -43,17 +51,33 @@ export async function signIn(request: Request, response: Response, nextFunction:
           return response.json({status: 200, data: null, message: "sign in successful"})
         };
 
-        const signInFailed = () => response.json({
-          status: 400,
-          data: null,
-          message: "incorrect username or password"
-        });
 
         const isPasswordValid: boolean = passportUser && await validatePassword(passportUser.profileHash, profilePassword);
 
-        return isPasswordValid ? signInSuccessful() : signInFailed();
+        return isPasswordValid ? signInSuccessful() : signInFailed("Invalid email or password");
       })(request, response, nextFunction)
   } catch (error) {
     return response.json({status: 500, data: null, message: error.message})
   }
 }
+
+
+const LocalStrategy = passportLocal.Strategy;
+
+const passportStrategy: Strategy = new LocalStrategy(
+  {
+    usernameField: 'profileEmail',
+    passwordField: "profilePassword"
+  },
+  async (email, password, done) => {
+    try {
+
+      const profile: Profile | undefined = await selectProfileByProfileEmail(email);
+
+      return profile ? done(null, profile) : done(undefined, undefined, {message: 'Incorrect username or password'});
+    } catch (error) {
+      return done(error);
+    }
+  });
+
+export const passportMiddleware = passport.use(passportStrategy);
