@@ -34,26 +34,10 @@ export async function getTweetByTweetProfileId(request : Request, response: Resp
 
 export async function postTweet(request: Request, response: Response) {
 	try {
-		validationResult(request).throw();
-
-
 
 		const {tweetContent} = request.body;
-		const profile: Profile = request.session?.profile
 
-		// If the user is not logged in, return unauthorized
-		if (profile == undefined){
-				const status: Status = {
-				status: 401,
-				message: 'must be logged in to tweet',
-				data: null
-			};
-				return response.json(status)
-		}
-
-		const tweetProfileId = <string>profile.profileId
-
-		// const tweetProfileId = <string>request.session?.profile.profileId
+		const tweetProfileId = <string>request.session?.profile.profileId
 
 		const tweet: Tweet = {
 			tweetId: null,
