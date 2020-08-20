@@ -9,7 +9,7 @@ services:
       - ./.env
     command: --default-authentication-plugin=mysql_native_password
   app:
-    build: ./app
+    build: frontend
     depends_on:
       - node
 #    For deploying to server use ports: - 80:80
@@ -17,15 +17,15 @@ services:
     ports:
       - 81:80
   node:
-    build: ./apis
+    build: backend
     env_file:
       - .env
     ports:
       - 8080:4200
     user: "node"
     volumes:
-      - ./apis/src:/home/node/app/src
-      - ./apis/utils:/home/node/app/utils/
-      - ./apis/tsconfig.json:/home/node/app/tsconfig.json
+      - ./backend/src:/home/node/app/src
+      - ./backend/utils:/home/node/app/utils/
+      - ./backend/tsconfig.json:/home/node/app/tsconfig.json
 volumes:
   tweeter:
