@@ -1,21 +1,18 @@
 import React, {useEffect} from 'react';
 import {useSelector, useDispatch} from "react-redux";
-import {getAllTweets} from "../../shared/actions/tweet";
-import {TweetCard} from "../../shared/components/tweetCard/TweetCard";
-import {TweetForm} from "../../shared/components/tweetForm/TweetForm";
+import {TweetCard} from "../shared/components/tweetCard/TweetCard";
+import {TweetForm} from "../shared/components/tweetForm/TweetForm";
 import {Container} from "react-bootstrap"
+import {fetchAllTweets} from "../../store/tweets";
 
 export const Home = () => {
 
-	const tweets = useSelector(state => state.tweets);
+	const tweets = useSelector(state => state.tweets ? state.tweets : []);
 	const dispatch = useDispatch();
-
 	const effects = () => {
-		dispatch(getAllTweets());
+		dispatch(fetchAllTweets());
 	};
-
 	const inputs = [];
-
 	useEffect(effects, inputs);
 
 	return (

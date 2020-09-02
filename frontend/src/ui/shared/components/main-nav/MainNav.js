@@ -9,16 +9,16 @@ import NavDropdown from "react-bootstrap/NavDropdown";
 import {httpConfig} from "../../utils/http-config";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import {Link} from "react-router-dom";
-import {getAuth} from "../../actions/auth";
 import {useDispatch, useSelector} from "react-redux";
+import {fetchAuth} from "../../../../store/auth";
 
 
 export const MainNav = (props) => {
 
-	const dispatch = useDispatch()
 	const auth = useSelector(state => state.auth);
+	const dispatch = useDispatch()
 	const effects = () => {
-		dispatch(getAuth());
+		dispatch(fetchAuth());
 	};
 	const inputs = [];
 	useEffect(effects, inputs);
@@ -29,14 +29,12 @@ export const MainNav = (props) => {
 				let {message, type} = reply;
 				if(reply.status === 200) {
 					window.localStorage.removeItem("authorization");
-					console.log(reply);
 					window.location = "/";
 					// setToHome(true);
-					dispatch(getAuth())
+					// dispatch(fetchAuth())
 				}
 			});
 	};
-
 
 	return(
 		<Navbar bg="primary" variant="dark">
@@ -67,7 +65,7 @@ export const MainNav = (props) => {
 				</LinkContainer>
 					</>
 					)}
-				{auth === null && (
+				{!auth && (
 					<>
 				<SignUpModal/>
 				<SignInModal/>

@@ -6,12 +6,11 @@ import {Status} from '../../utils/interfaces/Status';
 import {Profile} from "../../utils/interfaces/Profile";
 import {insertTweet} from "../../utils/tweet/insertTweet"
 import {selectAllTweets} from "../../utils/tweet/selectAllTweets";
-import {selectTweetsByTweetProfileId} from "../../utils/tweet/selectTweetByTweetProfileId";
+import {selectTweetsByTweetProfileId} from "../../utils/tweet/selectTweetsByTweetProfileId";
 
 const {validationResult} = require('express-validator');
 
 export async function getAllTweetsController(request: Request, response: Response): Promise<Response | void> {
-
 
 	try {
 

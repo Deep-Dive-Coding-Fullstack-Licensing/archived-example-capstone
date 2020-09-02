@@ -2,10 +2,9 @@ import React, {useState} from 'react';
 import {httpConfig} from "../../utils/http-config";
 import * as Yup from "yup";
 import {Formik} from "formik";
-import {getAllTweets} from "../../actions/tweet";
-
 import {TweetFormContent} from "./TweetFormContent";
 import {useDispatch} from "react-redux";
+import {fetchAllTweets} from "../../../../store/tweets";
 
 export const TweetForm = () => {
 	const tweet = {
@@ -28,7 +27,7 @@ export const TweetForm = () => {
 					
 					if(reply.status === 200) {
 						resetForm();
-						dispatch(getAllTweets())
+						dispatch(fetchAllTweets())
 					}
 					setStatus({message, type});
 				}

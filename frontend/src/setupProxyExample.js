@@ -1,9 +1,9 @@
 const proxy = require('http-proxy-middleware');
 
 module.exports = function(app) {
-	app.use(proxy('/backend', {
+	app.use(proxy('/apis', {
 		logLevel: 'debug',
-		target: "https://bootcamp-coders.cnm.edu/~YOUR-USER-NAME/PROJECT/php/public_html/",
+		target: "https://YOUR-IP-ADDRESS/:8080/",
 		changeOrigin: true,
 		secure: true,
 

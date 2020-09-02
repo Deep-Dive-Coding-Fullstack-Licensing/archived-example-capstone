@@ -25,7 +25,7 @@ export const TweetFormContent = (props) => {
 					<div className="input-group">
 						<div className="input-group-prepend">
 							<div className="input-group-text">
-								<FontAwesomeIcon icon="pencil"/>
+								<FontAwesomeIcon icon="pencil-alt"/>
 							</div>
 						</div>
 						<input

@@ -3,8 +3,8 @@ import {httpConfig} from "../../../utils/http-config";
 import {Formik} from "formik";
 import * as Yup from "yup";
 import {SignInFormContent} from "./SignInFormContent";
-import {getAuth} from "../../../actions/auth";
 import {useDispatch} from "react-redux";
+import {fetchAuth} from "../../../../../store/auth";
 
 
 
@@ -37,7 +37,7 @@ export const SignInForm = () => {
 					window.localStorage.removeItem("authorization");
 					window.localStorage.setItem("authorization", reply.headers["authorization"]);
 					resetForm();
-					dispatch(getAuth())
+					dispatch(fetchAuth())
 					// window.location = "/";
 				}
 				setStatus({message, type});

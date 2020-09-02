@@ -1,8 +1,8 @@
-import {Home} from "./pages/home/Home";
-import {Profile} from "./pages/profile/Profile";
-import {Image} from "./pages/image/Image"
-import {FourOhFour} from "./pages/four-oh-four/FourOhFour";
-import {MainNav} from "./shared/components/main-nav/MainNav";
+import {Home} from "./ui/home/Home";
+import {Profile} from "./ui/profile/Profile";
+import {Image} from "./ui/image/Image"
+import {FourOhFour} from "./ui/four-oh-four/FourOhFour";
+import {MainNav} from "./ui/shared/components/main-nav/MainNav";
 
 import React from "react";
 import ReactDOM from "react-dom";
@@ -10,16 +10,17 @@ import 'bootstrap/dist/css/bootstrap.css';
 import {Route, BrowserRouter, Switch} from 'react-router-dom'
 
 import { library } from '@fortawesome/fontawesome-svg-core'
-import {faDove, faEnvelope, faKey, faPhone, faStroopwafel} from '@fortawesome/free-solid-svg-icons'
+import {faDove, faEnvelope, faKey, faPencilAlt, faPhone, faStroopwafel} from '@fortawesome/free-solid-svg-icons'
 import {Provider} from "react-redux";
-import {applyMiddleware, createStore} from "redux";
+import {applyMiddleware} from "redux";
 import thunk from "redux-thunk";
-import {combinedReducers} from "./shared/reducers/reducers";
+import {configureStore} from "@reduxjs/toolkit";
 // import 'bootstrap/dist/js/bootstrap.bundle.min';
+import reducer from './store/index'
 
-const store = createStore(combinedReducers, applyMiddleware(thunk));
+const store = configureStore({reducer});
 
-library.add(faStroopwafel, faEnvelope, faKey, faDove, faPhone);
+library.add(faStroopwafel, faEnvelope, faKey, faDove, faPhone, faPencilAlt);
 
 const Routing = (store) => (
 	<>
