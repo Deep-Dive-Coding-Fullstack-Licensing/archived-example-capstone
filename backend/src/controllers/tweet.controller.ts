@@ -14,7 +14,7 @@ export async function getAllTweetsController(request: Request, response: Respons
 
 	try {
 
-		const profile: Profile | string = request.session?.profile ?? "No user signed in";
+		const profileId : string = <string> request.session?.profile.profileId
 
 		const data = await selectAllTweets()
 		// return the response
@@ -25,7 +25,7 @@ export async function getAllTweetsController(request: Request, response: Respons
 	}
 }
 
-export async function getTweetByTweetProfileIdController(request : Request, response: Response, nextFunction: NextFunction){
+export async function getTweetsByTweetProfileIdController(request : Request, response: Response, nextFunction: NextFunction){
 	const     {tweetProfileId} = request.params
 	const data  = await selectTweetsByTweetProfileId(tweetProfileId)
 	return response.json({status:200, message: null, data})
