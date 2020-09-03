@@ -10,7 +10,8 @@ import {httpConfig} from "../../utils/http-config";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import {Link} from "react-router-dom";
 import {useDispatch, useSelector} from "react-redux";
-import {fetchAuth} from "../../../../store/auth";
+import {getAuth, fetchAuth} from "../../../../store/auth";
+import { SignOutComponent } from './SignOut'
 
 
 export const MainNav = (props) => {
@@ -18,23 +19,25 @@ export const MainNav = (props) => {
 	const auth = useSelector(state => state.auth);
 	const dispatch = useDispatch()
 	const effects = () => {
-		dispatch(fetchAuth());
+    dispatch(fetchAuth());
 	};
 	const inputs = [];
 	useEffect(effects, inputs);
 
-	const signOut = () => {
-		httpConfig.get("/apis/sign-out/")
-			.then(reply => {
-				let {message, type} = reply;
-				if(reply.status === 200) {
-					window.localStorage.removeItem("authorization");
-					window.location = "/";
-					// setToHome(true);
-					// dispatch(fetchAuth())
-				}
-			});
-	};
+	const [show, setShow] = useState(false);
+
+	const handleClose = () => setShow(false);
+	const handleShow = () => setShow(true);
+
+	// isModalOpen prevents the sign in modal being removed from the dom before the
+	// sign-in modal is closed by the user
+	const isModalOpen = ()=> {
+		if(!auth) {
+			return !auth
+		} else if(show === true && auth  ) {
+			return true
+		}
+	}
 
 	return(
 		<Navbar bg="primary" variant="dark">
@@ -53,22 +56,17 @@ export const MainNav = (props) => {
 								<FontAwesomeIcon icon="user" />&nbsp;&nbsp;My Profile
 							</Link>
 						</div>
-						<div className="dropdown-divider"></div>
-						<div className="dropdown-item sign-out-dropdown">
-							<button className="btn btn-outline-dark" onClick={signOut}>
-								Sign Out&nbsp;&nbsp;<FontAwesomeIcon icon="sign-out-alt" />
-							</button>
-						</div>
+						<SignOutComponent />
 					</NavDropdown>
 				<LinkContainer exact to="/image">
 					<Nav.Link>Image</Nav.Link>
 				</LinkContainer>
 					</>
 					)}
-				{!auth && (
+				{isModalOpen()  &&  (
 					<>
 				<SignUpModal/>
-				<SignInModal/>
+				<SignInModal show={show} handleClose={handleClose} handleShow={handleShow}/>
 				</>
 					)}
 			</Nav>

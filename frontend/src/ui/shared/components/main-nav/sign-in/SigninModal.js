@@ -4,11 +4,9 @@ import {Modal} from "react-bootstrap";
 import {SignInForm} from "./SignInForm";
 
 
-export const SignInModal = () => {
-	const [show, setShow] = useState(false);
+export const SignInModal = (props) => {
+	const {handleShow, handleClose, show} = props
 
-	const handleClose = () => setShow(false);
-	const handleShow = () => setShow(true);
 
 	return (
 		<>
