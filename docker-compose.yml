@@ -13,9 +13,8 @@ services:
     depends_on:
       - node
 #    For deploying to server use ports: - 80:80
-#    For deploying on localhost on linux you may need to use ports: - 81:80
     ports:
-      - 81:80
+      - 80:80
   node:
     build: backend
     env_file:
