@@ -52,7 +52,7 @@ export const MainNav = (props) => {
 					<>
 					<NavDropdown className="nav-link navbar-username" title={auth?.profileAtHandle ?? ""} >
 						<div className="dropdown-item">
-							<Link to={`/profile/${auth?.profileId}`} className="nav-link">
+							<Link to={`/profile/${auth?.profileId}`} className="btn btn-outline-dark">
 								<FontAwesomeIcon icon="user" />&nbsp;&nbsp;My Profile
 							</Link>
 						</div>

@@ -5,10 +5,10 @@ const { sign } = require('jsonwebtoken')
 
 export function generateJwt (payload: object, signature: string): any {
   const setExpInSecondsSinceEpoch = (currentTimestamp: number): number => {
-    const oneHourInMilliseconds: number = 3600000
-    const futureTimestamp: number = currentTimestamp + oneHourInMilliseconds
+    const oneHourInMilliseconds: number = 3600000 * 3
+    const futureTimestamp: number = Math.round(currentTimestamp) + oneHourInMilliseconds
     const futureTimestampInSeconds: number = futureTimestamp / 1000
-    return Math.floor(futureTimestampInSeconds)
+    return Math.round(futureTimestampInSeconds)
   }
 
   const iat = new Date().getTime()
