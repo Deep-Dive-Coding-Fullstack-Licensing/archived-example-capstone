@@ -5,9 +5,8 @@ import { Formik } from "formik";
 import { EditProfileFormContent } from './EditProfileFormContent'
 
 
-export const EditProfileForm = ({profile}) => {
-	console.log(profile)
-
+export const EditProfileForm = (props) => {
+	const {profile} = props
 
 	const validationObject = Yup.object().shape({
 		profileEmail: Yup.string()

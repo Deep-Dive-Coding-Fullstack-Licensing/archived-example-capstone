@@ -1,9 +1,9 @@
 export const tweetValidator = {
-  // tweetProfileId: {
-  //   isUUID: {
-  //     errorMessage: 'please provide a valid TweetProfileId'
-  //   }
-  // },
+  tweetProfileId: {
+    isUUID: {
+      errorMessage: 'please provide a valid TweetProfileId'
+    }
+  },
   tweetContent: {
     isLength: {
       errorMessage: 'a tweet cannot be longer than 140 characters',
