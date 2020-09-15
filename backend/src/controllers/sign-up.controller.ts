@@ -11,7 +11,7 @@ const mailgun = require("mailgun-js")
 // Interfaces (represent the DB model and types of the columns associated with a specific DB table)
 
 
-export async function signupProfileController(request: Request, response: Response) {
+export async function signupProfileController(request: Request, response: Response) : Promise<Response|undefined>  {
   try {
 
 
@@ -65,16 +65,13 @@ export async function signupProfileController(request: Request, response: Respon
       };
       mg.messages().sendMime(compiledEmail, (sendError: any, body: any) => {
         if (sendError) {
-          console.log(sendError);
-          return;
+          return response.json({status:418, data:null, message:"error sending email"})
         }
         return response.json(status);
       });
-
-
     })
-
   } catch (error) {
+
     const status: Status = {
       status: 400,
       message: error.message,

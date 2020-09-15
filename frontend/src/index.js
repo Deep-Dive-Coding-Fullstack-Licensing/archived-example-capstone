@@ -10,7 +10,15 @@ import 'bootstrap/dist/css/bootstrap.css';
 import {Route, BrowserRouter, Switch} from 'react-router-dom'
 
 import { library } from '@fortawesome/fontawesome-svg-core'
-import {faDove, faEnvelope, faKey, faPencilAlt, faPhone, faStroopwafel} from '@fortawesome/free-solid-svg-icons'
+import {
+	faDove,
+	faEnvelope,
+	faKey,
+	faPencilAlt,
+	faPhone,
+	faSignOutAlt,
+	faStroopwafel, faUser,
+} from '@fortawesome/free-solid-svg-icons'
 import {Provider} from "react-redux";
 import {applyMiddleware} from "redux";
 import thunk from "redux-thunk";
@@ -20,7 +28,7 @@ import reducer from './store/index'
 
 const store = configureStore({reducer});
 
-library.add(faStroopwafel, faEnvelope, faKey, faDove, faPhone, faPencilAlt);
+library.add(faStroopwafel, faEnvelope, faKey, faDove, faPhone, faPencilAlt, faSignOutAlt, faUser);
 
 const Routing = (store) => (
 	<>

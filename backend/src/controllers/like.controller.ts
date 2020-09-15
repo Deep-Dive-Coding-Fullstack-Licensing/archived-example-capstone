@@ -6,17 +6,14 @@ import {Request, Response} from 'express';
 import {Status} from '../../utils/interfaces/Status';
 import {Profile} from "../../utils/interfaces/Profile";
 import {Like} from "../../utils/interfaces/Like";
-import {selectLike} from "../../utils/like/selectLike";
+import {selectLikeByLikeId} from "../../utils/like/selectLikeByLikeId";
 import {deleteLike} from "../../utils/like/deleteLike";
 import {insertLike} from "../../utils/like/insertLike";
 
-const {validationResult} = require('express-validator');
 
 export async function toggleLikeController(request: Request, response: Response) {
 
 	try {
-		validationResult(request).throw();
-
 		const {likeTweetId} = request.body;
 		const profile: Profile = request.session?.profile
 		const likeProfileId = <string>profile.profileId
@@ -26,7 +23,7 @@ export async function toggleLikeController(request: Request, response: Response)
 			likeTweetId,
 			likeDate: null,
 		}
-		const select = await selectLike(like)
+		const select = await selectLikeByLikeId(like)
 		// @ts-ignore
 		if (select[0]){
 			const result = await deleteLike(like)

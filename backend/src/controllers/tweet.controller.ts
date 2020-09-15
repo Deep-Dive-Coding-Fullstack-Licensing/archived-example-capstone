@@ -13,9 +13,6 @@ const {validationResult} = require('express-validator');
 export async function getAllTweetsController(request: Request, response: Response): Promise<Response | void> {
 
 	try {
-
-		const profile: Profile | string = request.session?.profile ?? "No user signed in";
-
 		const data = await selectAllTweets()
 		// return the response
 		const status: Status = {status: 200, message: null, data};
@@ -25,7 +22,7 @@ export async function getAllTweetsController(request: Request, response: Respons
 	}
 }
 
-export async function getTweetByTweetProfileIdController(request : Request, response: Response, nextFunction: NextFunction){
+export async function getTweetsByTweetProfileIdController(request : Request, response: Response, nextFunction: NextFunction){
 	const     {tweetProfileId} = request.params
 	const data  = await selectTweetsByTweetProfileId(tweetProfileId)
 	return response.json({status:200, message: null, data})

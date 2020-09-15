@@ -7,22 +7,24 @@ import morgan from 'morgan';
 // Routes
 import IndexRoutes from './routes/index.route';
 import { SignInRouter } from './routes/sign-in.route';
-import { passportMiddleware } from './lib/auth.controller';
 const session = require("express-session");
 import passport = require('passport');
 import {SignOutRoute} from "./routes/sign-out.route";
 const MemoryStore = require('memorystore')(session);
 import csrf from "csurf";
+import {passportStrategy} from "./controllers/sign-in.controller";
+import {ProfileRoute} from "./routes/profile.route";
+import {ImageUploadRouter} from "./routes/image-upload.route";
 
 
 // The following class creates the frontend and instantiates the server
 export class App {
     app: Application;
 
+
     constructor (
         private port?: number | string
     ) {
-      passportMiddleware; // eslint-disable-line
       this.app = express();
       this.settings();
       this.middlewares();
@@ -40,7 +42,7 @@ export class App {
 
       const sessionConfig  =  {
         store: new MemoryStore({
-          checkPeriod: 10800
+          checkPeriod: 100800
         }),
         secret:"secret",
         saveUninitialized: true,
@@ -53,6 +55,7 @@ export class App {
       this.app.use(session(sessionConfig));
       this.app.use(passport.initialize());
       this.app.use(passport.session());
+      passport.use(passportStrategy);
 
     }
 
@@ -64,6 +67,8 @@ export class App {
     this.app.use("/apis/sign-out", SignOutRoute);
     this.app.use('/apis/sign-up', SignupRoute);
     this.app.use('/apis/like', LikeRoute);
+    this.app.use('/apis/profile', ProfileRoute)
+      this.app.use('/apis/image-upload', ImageUploadRouter)
 
   }
 

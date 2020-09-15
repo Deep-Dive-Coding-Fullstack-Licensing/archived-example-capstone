@@ -7,6 +7,7 @@ import uuid from "uuid";
 import {generateJwt, validatePassword} from "../../utils/auth.utils";
 import {Profile} from "../../utils/interfaces/Profile";
 import {selectProfileByProfileEmail} from "../../utils/profile/selectProfileByProfileEmail";
+import exp from "constants";
 
 export async function signInController(request: Request, response: Response, nextFunction: NextFunction) {
 
@@ -63,7 +64,7 @@ export async function signInController(request: Request, response: Response, nex
 
 const LocalStrategy = passportLocal.Strategy;
 
-const passportStrategy: Strategy = new LocalStrategy(
+export const  passportStrategy: Strategy = new LocalStrategy(
   {
     usernameField: 'profileEmail',
     passwordField: "profilePassword"
@@ -77,6 +78,5 @@ const passportStrategy: Strategy = new LocalStrategy(
     } catch (error) {
       return done(error);
     }
-  });
-
-export const passportMiddleware = passport.use(passportStrategy);
+  }
+  );
