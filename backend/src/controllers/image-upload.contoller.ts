@@ -1,5 +1,5 @@
 import {NextFunction, Request, Response} from "express";
-import {uploadToCloudinary} from "../lib/cloudinary";
+import {uploadToCloudinary} from "../utils/cloudinary.utils";
 
 export async function imageUploadController(request: Request, response: Response, nextFunction: NextFunction) {
   try {

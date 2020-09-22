@@ -1,7 +1,7 @@
 import {NextFunction, Request, Response} from 'express';
 import {JsonWebTokenError, TokenExpiredError, verify, } from "jsonwebtoken";
-import {Status} from "../../utils/interfaces/Status";
-import {Profile} from "../../utils/interfaces/Profile";
+import {Status} from "../interfaces/Status";
+import {Profile} from "../interfaces/Profile";
 
 export function isLoggedIn(request: Request, response: Response, next: NextFunction): any {
 

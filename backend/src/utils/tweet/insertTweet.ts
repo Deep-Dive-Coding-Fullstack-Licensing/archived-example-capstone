@@ -1,5 +1,5 @@
 import {Tweet} from "../interfaces/Tweet";
-import {connect} from "../../src/database";
+import {connect} from "../../database";
 
 export async function insertTweet(tweet: Tweet) {
   try {

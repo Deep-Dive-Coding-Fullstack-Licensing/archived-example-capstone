@@ -1,9 +1,9 @@
 
 import { Router } from 'express';
 import {getAllTweetsController, getTweetsByTweetProfileIdController, postTweet} from '../controllers/tweet.controller';
-import { asyncValidatorController } from '../controllers/asyncValidator.controller';
+import { asyncValidatorController } from '../utils/controllers/asyncValidator.controller';
 import { tweetValidator } from '../validators/tweet.validator';
-import {isLoggedIn} from "../controllers/isLoggedIn.controller";
+import {isLoggedIn} from "../utils/controllers/isLoggedIn.controller";
 const { checkSchema } = require('express-validator');
 
 const router = Router();

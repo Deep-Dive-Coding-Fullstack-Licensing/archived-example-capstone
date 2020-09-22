@@ -3,12 +3,12 @@ import {Request, Response} from 'express';
 // DB
 
 // Interfaces (represent the DB model and types of the columns associated with a specific DB table)
-import {Status} from '../../utils/interfaces/Status';
-import {Profile} from "../../utils/interfaces/Profile";
-import {Like} from "../../utils/interfaces/Like";
-import {selectLikeByLikeId} from "../../utils/like/selectLikeByLikeId";
-import {deleteLike} from "../../utils/like/deleteLike";
-import {insertLike} from "../../utils/like/insertLike";
+import {Status} from '../utils/interfaces/Status';
+import {Profile} from "../utils/interfaces/Profile";
+import {Like} from "../utils/interfaces/Like";
+import {selectLikeByLikeId} from "../utils/like/selectLikeByLikeId";
+import {deleteLike} from "../utils/like/deleteLike";
+import {insertLike} from "../utils/like/insertLike";
 
 
 export async function toggleLikeController(request: Request, response: Response) {

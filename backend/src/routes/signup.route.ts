@@ -1,7 +1,7 @@
 import { Router } from 'express';
 import { signupProfileController } from '../controllers/sign-up.controller';
 import { signupValidator } from '../validators/signup.validator';
-import { asyncValidatorController } from '../controllers/asyncValidator.controller';
+import { asyncValidatorController } from '../utils/controllers/asyncValidator.controller';
 import {activationController} from "../controllers/activation.controller";
 import {param} from "express-validator";
 

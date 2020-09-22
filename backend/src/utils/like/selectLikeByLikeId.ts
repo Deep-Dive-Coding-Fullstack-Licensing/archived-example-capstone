@@ -1,5 +1,5 @@
 import {Tweet} from "../interfaces/Tweet";
-import {connect} from "../../src/database";
+import {connect} from "../../database";
 import {Like} from "../interfaces/Like";
 
 export async function selectLikeByLikeId(like: Like) {

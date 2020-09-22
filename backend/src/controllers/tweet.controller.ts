@@ -1,12 +1,12 @@
 import {Request, Response, NextFunction} from 'express';
 
 // Interfaces (represent the DB model and types of the columns associated with a specific DB table)
-import {Tweet} from '../../utils/interfaces/Tweet';
-import {Status} from '../../utils/interfaces/Status';
-import {Profile} from "../../utils/interfaces/Profile";
-import {insertTweet} from "../../utils/tweet/insertTweet"
-import {selectAllTweets} from "../../utils/tweet/selectAllTweets";
-import {selectTweetsByTweetProfileId} from "../../utils/tweet/selectTweetsByTweetProfileId";
+import {Tweet} from '../utils/interfaces/Tweet';
+import {Status} from '../utils/interfaces/Status';
+import {Profile} from "../utils/interfaces/Profile";
+import {insertTweet} from "../utils/tweet/insertTweet"
+import {selectAllTweets} from "../utils/tweet/selectAllTweets";
+import {selectTweetsByTweetProfileId} from "../utils/tweet/selectTweetsByTweetProfileId";
 
 const {validationResult} = require('express-validator');
 
