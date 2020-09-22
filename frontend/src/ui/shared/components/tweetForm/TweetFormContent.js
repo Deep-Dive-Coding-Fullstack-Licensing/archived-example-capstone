@@ -1,5 +1,4 @@
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
-import {FormDebugger} from "../FormDebugger";
 import React from "react";
 
 export const TweetFormContent = (props) => {

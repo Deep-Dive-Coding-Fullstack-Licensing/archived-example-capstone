@@ -6,11 +6,10 @@ import {SignUpModal} from "./sign-up/SignUpModal";
 import {SignInModal} from "./sign-in/SigninModal";
 import {Container} from "react-bootstrap";
 import NavDropdown from "react-bootstrap/NavDropdown";
-import {httpConfig} from "../../utils/http-config";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import {Link} from "react-router-dom";
 import {useDispatch, useSelector} from "react-redux";
-import {getAuth, fetchAuth} from "../../../../store/auth";
+import {fetchAuth} from "../../../../store/auth";
 import { SignOutComponent } from './SignOut'
 
 

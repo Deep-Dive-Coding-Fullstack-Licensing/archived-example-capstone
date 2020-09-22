@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React from 'react';
 import {httpConfig} from "../../../utils/http-config";
 import * as Yup from "yup";
 import {Formik} from "formik";
@@ -14,8 +14,6 @@ export const SignUpForm = () => {
 		profilePhone: "",
 		profileAvatar: "",
 	};
-
-	const [status, setStatus] = useState(null);
 
 	const validator = Yup.object().shape({
 		profileEmail: Yup.string()
