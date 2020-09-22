@@ -1,9 +1,9 @@
 import React from 'react'
-import {Home} from "./ui/home/Home";
-import {Profile} from "./ui/profile/Profile";
-import {Image} from "./ui/image/Image"
-import {FourOhFour} from "./ui/four-oh-four/FourOhFour";
-import {MainNav} from "./ui/shared/components/main-nav/MainNav";
+import {Home} from "./home/Home";
+import {Profile} from "./profile/Profile";
+import {Image} from "./image/Image"
+import {FourOhFour} from "./four-oh-four/FourOhFour";
+import {MainNav} from "./shared/components/main-nav/MainNav";
 import 'bootstrap/dist/css/bootstrap.css';
 import {Route, BrowserRouter, Switch} from 'react-router-dom'
 import {Provider} from "react-redux";
