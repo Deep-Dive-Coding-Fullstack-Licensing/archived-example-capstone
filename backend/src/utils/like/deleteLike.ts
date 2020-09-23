@@ -1,5 +1,5 @@
 import {Tweet} from "../interfaces/Tweet";
-import {connect} from "../../database";
+import {connect} from "../database.utils";
 import {Like} from "../interfaces/Like";
 
 export async function deleteLike(like: Like) {

@@ -5,7 +5,7 @@ let streamifier = require('streamifier');
 
 
 /**
- * helper function that handles uploading images to cloudinaryUtils
+ * helper function that handles uploading images to cloudinary
  *
  * @param { Request} request express request object that conatins a file with a buffer
  * @return {string | Error} a string containing a secure_url returned from cloudinaryUtils or an error if the file upload fails

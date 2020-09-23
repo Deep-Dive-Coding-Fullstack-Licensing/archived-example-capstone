@@ -6,7 +6,7 @@ async function main () {
     const app = new App(4200);
     await app.listen();
   } catch (e) {
-    console.log(e);
+    console.error(e)
   }
 }
 

@@ -17,7 +17,7 @@ This is an example capstone that contains a Twitter-like application.
     * This file initiates a generic API route to test the controller in index.controller
 5. `/backend/src/app.ts`
     * This file sets up the server to run on the provided port (5000 as set in index.ts) or default to 3000. It also sets up routing and the middleware for handling JSON responses
-6. `/backend/src/database.ts`
+6. `/backend/src/database.utils.ts`
     * This file sets up the database connection. Your connection details will be different
 7. `/backend/src/index.ts`
     * This file instantiates the app. This is the entry point.

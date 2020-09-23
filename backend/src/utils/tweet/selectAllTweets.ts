@@ -1,5 +1,5 @@
 import {Tweet} from "../interfaces/Tweet";
-import {connect} from "../../database";
+import {connect} from "../database.utils";
 import {Profile} from "../interfaces/Profile";
 import {Status} from "../interfaces/Status";
 

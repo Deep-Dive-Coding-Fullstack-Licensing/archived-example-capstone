@@ -1,6 +1,6 @@
 import { Router } from 'express';
-import {toggleLikeController} from "../controllers/like.controller";
-import {isLoggedIn} from "../utils/controllers/isLoggedIn.controller";
+import {toggleLikeController} from "./like.controller";
+import {isLoggedIn} from "../../utils/controllers/isLoggedIn.controller";
 
 const router = Router();
 

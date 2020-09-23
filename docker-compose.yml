@@ -24,7 +24,6 @@ services:
     user: "node"
     volumes:
       - ./backend/src:/home/node/app/src
-      - ./backend/utils:/home/node/app/utils/
       - ./backend/tsconfig.json:/home/node/app/tsconfig.json
 volumes:
   tweeter:

@@ -1,4 +1,4 @@
-import {connect} from "../../database";
+import {connect} from "../database.utils";
 import {Profile} from "../interfaces/Profile";
 
 export async function selectProfileByProfileEmail(profileEmail: string) {

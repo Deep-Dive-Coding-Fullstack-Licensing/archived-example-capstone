@@ -1,5 +1,5 @@
-import { Tweet } from '../utils/interfaces/Tweet';
-import { Status } from '../utils/interfaces/Status';
+import { Tweet } from '../../utils/interfaces/Tweet';
+import { Status } from '../../utils/interfaces/Status';
 import {Request, Response} from "express";
 
 export function signOutController(request: Request, response : Response) {

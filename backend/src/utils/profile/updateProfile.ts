@@ -1,6 +1,6 @@
 
 import {Profile} from "../interfaces/Profile";
-import {connect} from "../../database";
+import {connect} from "../database.utils";
 
 export async function updateProfile(profile: Profile) {
 	try {
