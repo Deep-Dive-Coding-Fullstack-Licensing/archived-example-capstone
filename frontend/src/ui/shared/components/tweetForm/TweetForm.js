@@ -1,9 +1,9 @@
-import React, {useState} from 'react';
+import React from 'react';
 import {httpConfig} from "../../utils/http-config";
 import * as Yup from "yup";
 import {Formik} from "formik";
 import {TweetFormContent} from "./TweetFormContent";
-import {useDispatch} from "react-redux";
+import { useSelector, useDispatch } from 'react-redux'
 import {fetchAllTweets} from "../../../../store/tweets";
 
 export const TweetForm = () => {
@@ -13,18 +13,20 @@ export const TweetForm = () => {
 
 	const dispatch = useDispatch()
 
-	const [status, setStatus] = useState(null);
+	const auth = useSelector(state => state.auth ? state.auth : null);
+
 	const validator = Yup.object().shape({
 		tweetContent: Yup.string()
 			.required("tweet content is required"),
 	});
 
 	const submitTweet = (values, {resetForm, setStatus}) => {
-
-		httpConfig.post("/apis/tweet/", values)
+		const tweetProfileId = auth?.profileId ?? null
+		const tweet = {tweetProfileId, ...values}
+			httpConfig.post("/apis/tweet/", tweet)
 			.then(reply => {
 					let {message, type} = reply;
-					
+
 					if(reply.status === 200) {
 						resetForm();
 						dispatch(fetchAllTweets())
@@ -36,7 +38,6 @@ export const TweetForm = () => {
 
 
 	return (
-
 		<Formik
 			initialValues={tweet}
 			onSubmit={submitTweet}

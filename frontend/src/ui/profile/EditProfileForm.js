@@ -13,9 +13,10 @@ export const EditProfileForm = (props) => {
 		.email("email must be a valid email"),
 		profilePhone: Yup.string()
 		.min(10, "phone number is to short")
-		.max(20, "phone Number is to long"),
+		.max(20, "phone Number is to long."),
 		profileAvatarUrl: Yup.mixed(),
-		profileAtHandle: Yup.string
+		profileAtHandle: Yup.string()
+		.min(1, "profile @handle is to long.")
 	});
 
 	function submitEditedProfile (values, {resetForm, setStatus}) {

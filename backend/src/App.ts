@@ -1,20 +1,20 @@
 import express, {Application, Errback, ErrorRequestHandler, NextFunction, Request, Response} from 'express';
-import TweetRoute from './routes/tweet.route';
-import SignupRoute from './routes/signup.route';
-import LikeRoute from './routes/like.route';
+import TweetRoute from './apis/tweet/tweet.route';
+import SignupRoute from './apis/sign-up/signup.route';
+import LikeRoute from './apis/like/like.route';
 import morgan from 'morgan';
 
 // Routes
-import IndexRoutes from './routes/index.route';
-import { SignInRouter } from './routes/sign-in.route';
+import IndexRoutes from './apis/index.route';
+import { SignInRouter } from './apis/sign-in/sign-in.route';
 const session = require("express-session");
 import passport = require('passport');
-import {SignOutRoute} from "./routes/sign-out.route";
+import {SignOutRoute} from "./apis/sign-out/sign-out.route";
 const MemoryStore = require('memorystore')(session);
 import csrf from "csurf";
-import {passportStrategy} from "./controllers/sign-in.controller";
-import {ProfileRoute} from "./routes/profile.route";
-import {ImageUploadRouter} from "./routes/image-upload.route";
+import {passportStrategy} from "./apis/sign-in/sign-in.controller";
+import {ProfileRoute} from "./apis/profile/profile.route";
+import {ImageUploadRouter} from "./apis/image-upload/image-upload.route";
 
 
 // The following class creates the frontend and instantiates the server

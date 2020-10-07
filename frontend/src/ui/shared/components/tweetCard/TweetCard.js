@@ -11,7 +11,6 @@ export const TweetCard = ({tweet}) => {
 	const clickLike = () => {
 		httpConfig.post("/apis/like/", {likeTweetId: tweet.tweetId})
 			.then(reply => {
-				let {message, type} = reply
 					if(reply.status === 200) {
 						console.log(reply)
 						dispatch(getAllTweets())
@@ -20,20 +19,6 @@ export const TweetCard = ({tweet}) => {
 				}
 			);
 	}
-
-	const deleteTweet = () => {
-		httpConfig.delete("/apis/tweet/", {tweetId: tweet.tweetId})
-			.then(reply => {
-					let {message, type} = reply
-					if(reply.status === 200) {
-						console.log(reply)
-						dispatch(getAllTweets())
-					}
-					console.log(reply)
-				}
-			);
-	}
-
 	return (
 		<div>
 			<Row>
@@ -43,7 +28,7 @@ export const TweetCard = ({tweet}) => {
 				<Col>
 					<strong>{tweet.profileAtHandle}</strong> {new Date(tweet.tweetDate).toDateString()}
 					<p>{tweet.tweetContent}</p>
-					<button onClick={clickLike}>{tweet.likeCount} ❤️ </button>
+					<button onClick={clickLike}>{tweet.likeCount}<span role="img" aria-label="heart emoji">❤️</span></button>
 					{/*{logged in profile id === tweet.tweetProfileId ? <button onclick={deleteTweet}>Delete</button> : ""}*/}
 				</Col>
 			</Row>
