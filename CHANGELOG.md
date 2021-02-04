@@ -1,4 +1,4 @@
-# Version 1.1.0, 2021-01-20
+# Version 1.1.0, 2021-02-04
 - Major directory structure changes.
     * `/apis -> /backend`
     * `/app -> /frontend`
