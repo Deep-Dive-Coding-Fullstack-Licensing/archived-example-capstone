@@ -15,7 +15,7 @@ export async function toggleLikeController(request: Request, response: Response)
 
 	try {
 		const {likeTweetId} = request.body;
-		const profile: Profile = request.session?.profile
+		const profile = <Profile>request.session.profile
 		const likeProfileId = <string>profile.profileId
 
 		const like: Like = {

@@ -3,42 +3,59 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
-    "@fortawesome/fontawesome-svg-core": "^1.2.30",
-    "@fortawesome/free-solid-svg-icons": "^5.14.0",
-    "@fortawesome/react-fontawesome": "^0.1.11",
+    "@fortawesome/fontawesome-svg-core": "^1.2.32",
+    "@fortawesome/free-solid-svg-icons": "^5.15.1",
+    "@fortawesome/react-fontawesome": "^0.1.12",
     "@reduxjs/toolkit": "^1.4.0",
-    "axios": "^0.21.1",
-    "bootstrap": "^4.5.2",
-    "formik": "^2.1.5",
-    "http-proxy-middleware": "^0.19.2",
-    "jwt-decode": "^2.2.0",
-    "npm": "^6.14.8",
-    "react": "^16.10.1",
+    "@testing-library/jest-dom": "^5.11.5",
+    "@testing-library/react": "^11.1.0",
+    "@testing-library/user-event": "^12.1.10",
+    "axios": "^0.21.0",
+    "bootstrap": "^4.5.0",
+    "formik": "^2.2.1",
+    "http-proxy-middleware": "^1.0.6",
+    "jwt-decode": "^3.1.2",
+    "react": "^17.0.2",
     "react-bootstrap": "^1.3.0",
-    "react-dom": "^16.10.1",
-    "react-dropzone": "^11.2.0",
-    "react-filepond": "^7.1.0",
+    "react-dom": "^17.0.1",
+    "react-dropzone": "^11.3.2",
     "react-redux": "^7.2.1",
+    "react-router": "^5.2.0",
     "react-router-bootstrap": "^0.25.0",
-    "react-router-dom": "^5.1.2",
-    "react-scripts": "^3.4.3",
-    "redux": "^4.0.4",
-    "redux-thunk": "^2.3.0",
-    "yup": "^0.27.0"
+    "react-router-dom": "^5.2.0",
+    "react-scripts": "^4.0.3",
+    "standardx": "^5.0.0",
+    "yup": "^0.32.9"
   },
   "scripts": {
     "start": "react-scripts start",
+    "lint": "npx standardx --lint",
+    "fix": "npx standardx --fix",
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject"
   },
-  "eslintConfig": {
-    "extends": "react-app"
+  "husky": {
+    "hooks": {
+      "pre-commit": "npm run lint"
+    }
   },
-  "browserslist": [
-    ">0.2%",
-    "not dead",
-    "not ie <= 11",
-    "not op_mini all"
-  ]
+  "eslintConfig": {
+    "extends": [
+      "react-app",
+      "react-app/jest"
+    ]
+  },
+  "browserslist": {
+    "production": [
+      ">0.2%",
+      "not dead",
+      "not op_mini all"
+    ],
+    "development": [
+      "last 1 chrome version",
+      "last 1 firefox version",
+      "last 1 safari version"
+    ]
+  }
 }

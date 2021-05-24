@@ -32,8 +32,8 @@ export async function postTweet(request: Request, response: Response) {
 	try {
 
 		const {tweetContent} = request.body;
-
-		const tweetProfileId = <string>request.session?.profile.profileId
+		const profile = <Profile>request.session.profile
+		const tweetProfileId = <string>profile.profileId
 
 		const tweet: Tweet = {
 			tweetId: null,
