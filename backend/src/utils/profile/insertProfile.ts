@@ -10,6 +10,6 @@ export async function insertProfile(profile: Profile) {
 		return 'Profile Successfully Created'
 	} catch (e) {
 		console.error(e)
-		return null
+		throw "Error creating profile"
 	}
 }

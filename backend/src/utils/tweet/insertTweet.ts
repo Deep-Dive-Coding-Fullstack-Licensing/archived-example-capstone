@@ -9,6 +9,5 @@ export async function insertTweet(tweet: Tweet) {
     const [rows] = await mySqlConnection.execute(mySqlQuery, tweet)
     return "Tweet created successfully"
   } catch (error) {
-    console.log(error)
-  }
+    throw
 }

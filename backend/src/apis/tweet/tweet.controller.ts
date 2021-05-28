@@ -32,7 +32,7 @@ export async function postTweet(request: Request, response: Response) {
 	try {
 
 		const {tweetContent} = request.body;
-		const profile = <Profile>request.session.profile
+		const profile = <Profile>request.session?.profile
 		const tweetProfileId = <string>profile.profileId
 
 		const tweet: Tweet = {
@@ -50,7 +50,11 @@ export async function postTweet(request: Request, response: Response) {
 		return response.json(status);
 
 	} catch(error) {
-		console.log(error);
+		return  {
+			status: 500,
+			message: "Error Creating Tweet",
+			data: null
+		};
 	}
 }
 
