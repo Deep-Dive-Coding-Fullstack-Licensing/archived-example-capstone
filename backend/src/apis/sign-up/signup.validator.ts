@@ -1,4 +1,6 @@
-export const signupValidator = {
+import {Schema} from 'express-validator';
+
+export const signupValidator: Schema= {
   profileAtHandle: {
     escape: true,
     trim: true,
@@ -8,9 +10,7 @@ export const signupValidator = {
     }
   },
   profileAvatarUrl: {
-    optional: {
-      nullable: true
-    },
+    optional: true,
     isURL: {
       errorMessage: "profile avatar is malformed please upload a new image"
     }

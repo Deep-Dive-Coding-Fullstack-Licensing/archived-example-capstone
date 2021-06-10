@@ -11,7 +11,7 @@ import {selectTweetByTweetId} from '../../utils/tweet/selectTweetByTweetId';
 
 const {validationResult} = require('express-validator');
 
-export async function getAllTweetsController(request: Request, response: Response): Promise<Response> {
+export async function getAllTweetsController(request: Request, response: Response): Promise<Response<Status>> {
 
 	try {
 		const data = await selectAllTweets()
@@ -27,7 +27,7 @@ export async function getAllTweetsController(request: Request, response: Respons
 	}
 }
 
-export async function getTweetsByTweetProfileIdController(request : Request, response: Response, nextFunction: NextFunction) : Promise<Response>{
+export async function getTweetsByTweetProfileIdController(request : Request, response: Response, nextFunction: NextFunction): Promise<Response<Status>>{
 	try {
 		const     {tweetProfileId} = request.params
 		const data  = await selectTweetsByTweetProfileId(tweetProfileId)
@@ -41,7 +41,7 @@ export async function getTweetsByTweetProfileIdController(request : Request, res
 	}
 }
 
-export async function getTweetByTweetIdController(request : Request, response: Response, nextFunction: NextFunction) : Promise<Response>{
+export async function getTweetByTweetIdController(request : Request, response: Response, nextFunction: NextFunction) : Promise<Response<Status>>{
 	try {
 		const     {tweetId} = request.params
 		const data  = await selectTweetByTweetId(tweetId)
@@ -55,12 +55,12 @@ export async function getTweetByTweetIdController(request : Request, response: R
 	}
 }
 
-export async function postTweet(request: Request, response: Response) : Promise<Response> {
+export async function postTweet(request: Request, response: Response) : Promise<Response<Status>> {
 	try {
 
 		const {tweetContent} = request.body;
-		const profile = <Profile>request.session?.profile
-		const tweetProfileId = <string>profile.profileId
+		const profile : Profile = request.session.profile as Profile
+		const tweetProfileId : string = <string>profile.profileId
 
 		const tweet: Tweet = {
 			tweetId: null,

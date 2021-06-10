@@ -1,9 +1,9 @@
 import * as argon2 from 'argon2'
 
 const crypto = require('crypto')
-const { sign } = require('jsonwebtoken')
+import {sign}from 'jsonwebtoken'
 
-export function generateJwt (payload: object, signature: string): any {
+export function generateJwt (payload: object, signature: string): string {
   const setExpInSecondsSinceEpoch = (currentTimestamp: number): number => {
     const oneHourInMilliseconds: number = 3600000 * 3
     const futureTimestamp: number = Math.round(currentTimestamp) + oneHourInMilliseconds
