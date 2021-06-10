@@ -63,8 +63,8 @@
     "@typescript-eslint/parser": "^2.34.0",
     "mysql2": "^1.6.5",
     "node-ts": "^5.1.1",
-    "nodemon": "^1.18.11",
+    "nodemon": "^2.0.7",
     "standardx": "^5.0.0",
-    "typescript": "^3.9.9"
+    "typescript": "^4.3.2"
   }
 }
