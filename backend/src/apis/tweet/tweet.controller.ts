@@ -9,8 +9,6 @@ import {selectAllTweets} from "../../utils/tweet/selectAllTweets";
 import {selectTweetsByTweetProfileId} from "../../utils/tweet/selectTweetsByTweetProfileId";
 import {selectTweetByTweetId} from '../../utils/tweet/selectTweetByTweetId';
 
-const {validationResult} = require('express-validator');
-
 export async function getAllTweetsController(request: Request, response: Response): Promise<Response<Status>> {
 
 	try {

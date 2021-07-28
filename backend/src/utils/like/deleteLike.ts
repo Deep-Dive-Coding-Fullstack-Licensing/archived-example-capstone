@@ -8,6 +8,6 @@ export async function deleteLike(like: Like) {
 		const [result] = await mySqlConnection.execute(mySqlDelete, like)
 		return "Like successfully deleted"
 	} catch(error) {
-		console.log(error)
+		throw error
 	}
 }

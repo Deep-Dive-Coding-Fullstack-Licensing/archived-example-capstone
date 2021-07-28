@@ -6,7 +6,7 @@ let streamifier = require('streamifier');
 /**
  * helper function that handles uploading images to cloudinary
  *
- * @param { Request} request express request object that conatins a file with a buffer
+ * @param { Request} request express request object that contains a file with a buffer
  * @return {string} a string containing a secure_url returned from cloudinaryUtils.
  */
 export const uploadToCloudinary = (request : Request) : Promise<string> => {

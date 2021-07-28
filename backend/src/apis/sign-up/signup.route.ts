@@ -7,7 +7,7 @@ import {param} from "express-validator";
 
 const { checkSchema } = require('express-validator');
 
-const router = Router();
+const router: Router = Router();
 
 router.route('/')
   .post(

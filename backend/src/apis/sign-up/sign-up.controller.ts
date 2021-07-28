@@ -45,7 +45,7 @@ export async function signupProfileController(request: Request, response: Respon
       profilePhone
     };
 
-    const result = await insertProfile(profile)
+    await insertProfile(profile)
 
     const emailComposer: MailComposer = new MailComposer(mailgunMessage)
 
