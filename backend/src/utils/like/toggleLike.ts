@@ -2,7 +2,8 @@ import {Tweet} from "../interfaces/Tweet";
 import {connect} from "../database.utils";
 import {Like} from "../interfaces/Like";
 
-export async function toggleLike(like: Like) {
+//TODO REWRITE this whole thing
+export async function toggleLike(like: Like) : Promise<string> {
 	try {
 		console.log('like', like)
 		const mysqlConnection = await connect();
@@ -36,6 +37,6 @@ export async function toggleLike(like: Like) {
 
 		return "Like toggled successfully"
 	} catch (error) {
-		console.log(error)
+		throw error
 	}
 }

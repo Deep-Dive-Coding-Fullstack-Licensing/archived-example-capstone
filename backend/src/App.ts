@@ -32,13 +32,13 @@ export class App {
     }
 
     // private method that sets the port for the sever, to one from index.route.ts, and external .env file or defaults to 3000
-    private settings () {
+    private settings () : void{
       this.app.set('port', this.port || process.env.PORT || 3000);
     }
 
 
     // private method to setting up the middleware to handle json responses, one for dev and one for prod
-    private middlewares () {
+    private middlewares (): void {
 
       const sessionConfig  =  {
         store: new MemoryStore({

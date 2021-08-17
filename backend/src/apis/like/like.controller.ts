@@ -11,9 +11,10 @@ import {deleteLike} from "../../utils/like/deleteLike";
 import {insertLike} from "../../utils/like/insertLike";
 
 
-export async function toggleLikeController(request: Request, response: Response) {
+export async function toggleLikeController(request: Request, response: Response): Promise<Response<string>> {
 
 	try {
+
 		const {likeTweetId} = request.body;
 		const profile = <Profile>request.session.profile
 		const likeProfileId = <string>profile.profileId
@@ -39,6 +40,6 @@ export async function toggleLikeController(request: Request, response: Response)
 		return response.json(status);
 
 	} catch(error) {
-		console.log(error);
+		return(response.json({status: 500, data: null, message: error.message}))
 	}
 }
