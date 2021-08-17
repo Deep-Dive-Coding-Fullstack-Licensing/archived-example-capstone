@@ -7,9 +7,8 @@ import uuid from "uuid";
 import {generateJwt, validatePassword} from "../../utils/auth.utils";
 import {Profile} from "../../utils/interfaces/Profile";
 import {selectProfileByProfileEmail} from "../../utils/profile/selectProfileByProfileEmail";
-import exp from "constants";
 
-export async function signInController(request: Request, response: Response, nextFunction: NextFunction) {
+export async function signInController(request: Request, response: Response, nextFunction: NextFunction):Promise<Response|undefined> {
 
   try {
 
@@ -72,7 +71,7 @@ export const  passportStrategy: Strategy = new LocalStrategy(
   async (email, password, done) => {
     try {
 
-      const profile: Profile | undefined = await selectProfileByProfileEmail(email);
+      const profile: Profile | null = await selectProfileByProfileEmail(email);
 
       return profile ? done(null, profile) : done(undefined, undefined, {message: 'Incorrect username or password'});
     } catch (error) {

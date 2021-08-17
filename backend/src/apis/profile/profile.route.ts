@@ -5,7 +5,7 @@ import {check, checkSchema} from "express-validator";
 import {isLoggedIn} from "../../utils/controllers/isLoggedIn.controller";
 import {profileValidator} from "./profile.validator";
 
-export const ProfileRoute = Router();
+export const ProfileRoute: Router = Router();
 ProfileRoute.route('/')
   .post(putProfileController);
 

@@ -7,10 +7,9 @@ import {Profile} from "../../utils/interfaces/Profile";
 import {insertTweet} from "../../utils/tweet/insertTweet"
 import {selectAllTweets} from "../../utils/tweet/selectAllTweets";
 import {selectTweetsByTweetProfileId} from "../../utils/tweet/selectTweetsByTweetProfileId";
+import {selectTweetByTweetId} from '../../utils/tweet/selectTweetByTweetId';
 
-const {validationResult} = require('express-validator');
-
-export async function getAllTweetsController(request: Request, response: Response): Promise<Response | void> {
+export async function getAllTweetsController(request: Request, response: Response): Promise<Response<Status>> {
 
 	try {
 		const data = await selectAllTweets()
@@ -18,22 +17,48 @@ export async function getAllTweetsController(request: Request, response: Respons
 		const status: Status = {status: 200, message: null, data};
 		return response.json(status);
 	} catch(error) {
-		console.log(error);
+		return response.json({
+			status: 500,
+			message: "",
+			data: []
+		})
 	}
 }
 
-export async function getTweetsByTweetProfileIdController(request : Request, response: Response, nextFunction: NextFunction){
-	const     {tweetProfileId} = request.params
-	const data  = await selectTweetsByTweetProfileId(tweetProfileId)
-	return response.json({status:200, message: null, data})
+export async function getTweetsByTweetProfileIdController(request : Request, response: Response, nextFunction: NextFunction): Promise<Response<Status>>{
+	try {
+		const     {tweetProfileId} = request.params
+		const data  = await selectTweetsByTweetProfileId(tweetProfileId)
+		return response.json({status:200, message: null, data});
+	} catch(error) {
+		return response.json({
+			status: 500,
+			message: "",
+			data: []
+		})
+	}
 }
 
-export async function postTweet(request: Request, response: Response) {
+export async function getTweetByTweetIdController(request : Request, response: Response, nextFunction: NextFunction) : Promise<Response<Status>>{
+	try {
+		const     {tweetId} = request.params
+		const data  = await selectTweetByTweetId(tweetId)
+		return response.json({status:200, message: null, data});
+	} catch(error) {
+		return response.json({
+			status: 500,
+			message: "",
+			data: null
+		})
+	}
+}
+
+export async function postTweet(request: Request, response: Response) : Promise<Response<Status>> {
 	try {
 
 		const {tweetContent} = request.body;
-
-		const tweetProfileId = <string>request.session?.profile.profileId
+		const profile : Profile = request.session.profile as Profile
+		const tweetProfileId : string = <string>profile.profileId
 
 		const tweet: Tweet = {
 			tweetId: null,
@@ -44,13 +69,17 @@ export async function postTweet(request: Request, response: Response) {
 		const result = await insertTweet(tweet)
 		const status: Status = {
 			status: 200,
-			message: result ?? 'Tweet successfully created',
+			message: result,
 			data: null
 		};
 		return response.json(status);
 
 	} catch(error) {
-		console.log(error);
+		return  response.json({
+			status: 500,
+			message: "Error Creating tweet try again later.",
+			data: null
+		});
 	}
 }
 

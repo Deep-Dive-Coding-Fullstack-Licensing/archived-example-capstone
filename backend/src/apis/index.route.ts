@@ -1,7 +1,7 @@
 import { Router } from 'express';
 import { indexWelcome } from './index.controller';
 
-const router = Router();
+const router : Router = Router();
 
 router.route('/')
   .get(indexWelcome);
