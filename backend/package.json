@@ -26,7 +26,7 @@
   "author": "George Kephart",
   "license": "Apache-2.0",
   "dependencies": {
-    "argon2": "^0.25.1",
+    "argon2": "^0.27.0",
     "axios": "^0.21.1",
     "cloudinary": "^1.23.0",
     "cookie-parser": "^1.4.5",
