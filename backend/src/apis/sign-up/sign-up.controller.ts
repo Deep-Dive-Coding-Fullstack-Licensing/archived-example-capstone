@@ -70,7 +70,7 @@ export async function signupProfileController(request: Request, response: Respon
         return response.json(status);
       });
     })
-  } catch (error) {
+  } catch (error: any) {
 
     const status: Status = {
       status: 500,

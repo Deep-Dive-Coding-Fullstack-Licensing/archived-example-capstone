@@ -39,7 +39,7 @@ export async function toggleLikeController(request: Request, response: Response)
 		};
 		return response.json(status);
 
-	} catch(error) {
+	} catch(error: any) {
 		return(response.json({status: 500, data: null, message: error.message}))
 	}
 }

@@ -55,7 +55,7 @@ export async function signInController(request: Request, response: Response, nex
 
         return isPasswordValid ? signInSuccessful() : signInFailed("Invalid email or password");
       })(request, response, nextFunction)
-  } catch (error) {
+  } catch (error: any) {
     return response.json({status: 500, data: null, message: error.message})
   }
 }
@@ -74,7 +74,7 @@ export const  passportStrategy: Strategy = new LocalStrategy(
       const profile: Profile | null = await selectProfileByProfileEmail(email);
 
       return profile ? done(null, profile) : done(undefined, undefined, {message: 'Incorrect username or password'});
-    } catch (error) {
+    } catch (error: any) {
       return done(error);
     }
   }
