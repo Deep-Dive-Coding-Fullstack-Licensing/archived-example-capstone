@@ -8,11 +8,9 @@ import morgan from 'morgan';
 import IndexRoutes from './apis/index.route';
 import { SignInRouter } from './apis/sign-in/sign-in.route';
 const session = require("express-session");
-// import passport = require('passport');
 import {SignOutRoute} from "./apis/sign-out/sign-out.route";
 const MemoryStore = require('memorystore')(session);
 import csrf from "csurf";
-// import {passportStrategy} from "./apis/sign-in/sign-in.controller";
 import {ProfileRoute} from "./apis/profile/profile.route";
 import {ImageUploadRouter} from "./apis/image-upload/image-upload.route";
 
@@ -52,10 +50,7 @@ export class App {
 
       this.app.use(morgan('dev'));
       this.app.use(express.json());
-      // this.app.use(session(sessionConfig));
-      // this.app.use(passport.initialize());
-      // this.app.use(passport.session());
-      // passport.use(passportStrategy);
+      this.app.use(session(sessionConfig));
 
     }
 
