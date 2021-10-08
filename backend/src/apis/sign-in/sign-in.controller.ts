@@ -6,18 +6,18 @@ import {Profile} from "../../utils/interfaces/Profile";
 import {selectProfileByProfileEmail} from "../../utils/profile/selectProfileByProfileEmail";
 
 
-export async function signInController(request: Request, response: Response, nextFunction: NextFunction): Promise<Response | undefined> {
+export async function signInController(request: Request, response: Response): Promise<Response | undefined> {
+
+    const {profileEmail} = request.body
+    const mySqlResult: Profile | null = await selectProfileByProfileEmail(profileEmail);
+    const isEmailValid: boolean = mySqlResult ? true : false
+
     try {
         const authenticate = async () => {
 
             const {profilePassword} = request.body;
 
-            const {profileEmail} = request.body
-            const mySqlResult = await selectProfileByProfileEmail(profileEmail);
-
-            console.log("my sql result", mySqlResult)
-
-            // @ts-ignore
+            // @ts-ignore isEmailValid determines mySqlResult will not be null
             const {profileId, profileAtHandle, profileAvatarUrl, profilePhone, profileHash, profileActivationToken} = mySqlResult
 
             const profile: Profile = {
@@ -29,7 +29,6 @@ export async function signInController(request: Request, response: Response, nex
                 profileHash,
                 profileActivationToken
             }
-            console.log("profile info", profile)
 
             const signature: string = uuid();
             const authorization: string = generateJwt({
@@ -66,13 +65,12 @@ export async function signInController(request: Request, response: Response, nex
                 return response.json({status: 200, data: null, message: "sign in successful"})
             };
 
-
             const isPasswordValid: boolean = profile && await validatePassword(profile.profileHash, profilePassword);
 
             return isPasswordValid ? signInSuccessful() : signInFailed("Invalid email or password");
         }
 
-        return authenticate()
+        return isEmailValid ? authenticate() : response.json({status: 400, data: null, message: "Invalid email or password"})
 
     } catch (error: any) {
         return response.json({status: 500, data: null, message: error.message})
