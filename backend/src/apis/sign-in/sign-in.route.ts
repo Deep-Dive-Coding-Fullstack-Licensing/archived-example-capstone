@@ -7,4 +7,4 @@ import {checkSchema} from 'express-validator';
 export const SignInRouter: Router = Router();
 
 SignInRouter.route('/')
-  .post(asyncValidatorController(checkSchema(signInValidator)), signInController);
+  .post(asyncValidatorController(checkSchema(signInValidator)) ,signInController);
