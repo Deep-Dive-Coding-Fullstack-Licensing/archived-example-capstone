@@ -1,3 +1,6 @@
+# Version 1.2.0 2021-11-23
+- Removed passport for simple email password login
+- Replaced Mailgun-js with Mailgun.js
 # Version 1.1.0, 2021-02-04
 - Major directory structure changes.
     * `/apis -> /backend`
