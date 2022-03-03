@@ -1,10 +1,9 @@
-import {createPool, Pool} from 'mysql2/promise';
-require('dotenv').config();
+import { createPool, Pool } from 'mysql2/promise'
 
-let globalPool: Pool | undefined = undefined
+let globalPool: Pool | undefined
 
-export async function connect () : Promise<Pool> {
-  if (globalPool){
+export async function connect (): Promise<Pool> {
+  if (globalPool != null) {
     return globalPool
   }
   globalPool = await createPool({
@@ -14,6 +13,6 @@ export async function connect () : Promise<Pool> {
     database: process.env.MYSQL_DATABASE,
     connectionLimit: 10,
     namedPlaceholders: true
-  });
+  })
   return globalPool
 }
