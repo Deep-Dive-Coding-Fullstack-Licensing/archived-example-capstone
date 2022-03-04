@@ -1,6 +1,6 @@
-import {Schema} from 'express-validator';
+import { Schema } from 'express-validator'
 
-export const tweetValidator : Schema = {
+export const tweetValidator: Schema = {
   tweetProfileId: {
     isUUID: {
       errorMessage: 'please provide a valid TweetProfileId'
@@ -17,4 +17,4 @@ export const tweetValidator : Schema = {
   tweetDate: {
     toDate: true
   }
-};
+}

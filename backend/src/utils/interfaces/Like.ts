@@ -1,6 +1,5 @@
 export interface Like {
-	likeProfileId: string | null,
-	likeTweetId: string | null,
-	likeDate: Date | null;
+  likeProfileId: string | null
+  likeTweetId: string | null
+  likeDate: Date | null
 }
-

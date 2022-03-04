@@ -1,7 +1,7 @@
-import { Router } from 'express';
-import {signOutController} from "./sign-out.controller";
+import { Router } from 'express'
+import { signOutController } from './sign-out.controller'
 
-export const SignOutRoute: Router = Router();
+export const SignOutRoute: Router = Router()
 
-SignOutRoute.route("/")
-  .get(signOutController);
+SignOutRoute.route('/')
+  .get(signOutController)
