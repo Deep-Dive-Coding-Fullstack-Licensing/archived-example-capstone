@@ -1,5 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit";
-import * as jwtDecode from "jwt-decode";
+import jwtDecode from "jwt-decode";
 
 
 const slice = createSlice({

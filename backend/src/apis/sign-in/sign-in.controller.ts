@@ -1,4 +1,4 @@
-import { Request, Response } from 'express'
+import { NextFunction, Request, Response } from 'express'
 import 'express-session'
 import { v4 as uuid } from 'uuid'
 import { generateJwt, validatePassword } from '../../utils/auth.utils'
