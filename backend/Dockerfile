@@ -10,5 +10,6 @@ WORKDIR ./home/node/app
 RUN chown node:node -R ./
 USER node
 COPY package.json package-lock.json ./
+COPY tsconfig.json ./
 RUN npm install --no-optional && npm cache clean --force
 CMD ["npm", "run", "dev"]
