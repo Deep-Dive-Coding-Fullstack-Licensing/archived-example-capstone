@@ -7,43 +7,32 @@
     "compile": "ts-node ./src/index.ts",
     "dev": "./node_modules/nodemon/bin/nodemon.js -e ts  --exec \"npm run compile\"",
     "test": "echo \\\"Error: no src/test specified\\\" && exit 1",
-    "clean": " standardx --fix --parser @typescript-eslint/parser --plugin @typescript-eslint/eslint-plugin **/*.ts",
-    "lint": " standardx --parser @typescript-eslint/parser --plugin @typescript-eslint/eslint-plugin **/*.ts"
-  },
-  "eslintConfig": {
-    "rules": {
-      "no-unused-vars": "off",
-      "@typescript-eslint/no-unused-vars": "error"
-    }
-  },
-  "standardx": {
-    "parser": "@typescript-eslint/parser",
-    "plugins": [
-      "@typescript-eslint/eslint-plugin"
-    ]
+    "clean": "ts-standard --fix",
+    "lint": "ts-standard"
   },
   "keywords": [],
   "author": "George Kephart",
   "license": "Apache-2.0",
   "dependencies": {
+    "@types/uuid": "^8.3.4",
     "argon2": "^0.27.0",
     "axios": "^0.21.1",
-    "cloudinary": "^1.23.0",
+    "cloudinary": "^1.28.1",
     "cookie-parser": "^1.4.5",
     "csurf": "^1.11.0",
-    "dotenv": "^8.2.0",
     "express": "^4.17.1",
     "express-session": "^1.17.2",
-    "express-validator": "^6.3.0",
+    "express-validator": "^6.12.1",
     "form-data": "^4.0.0",
     "jsonwebtoken": "^8.5.1",
-    "mailgun.js": "^4.0.0",
-    "memorystore": "^1.6.1",
-    "morgan": "^1.9.1",
-    "multer": "^1.4.2",
-    "nodemailer": "^6.6.1",
-    "ts-node": "^8.5.4",
-    "uuid": "^3.4.0"
+    "mailgun.js": "^3.5.7",
+    "memorystore": "^1.6.6",
+    "morgan": "^1.10.0",
+    "multer": "^1.4.4",
+    "mysql2": "^2.3.3",
+    "ts-node": "^10.5.0",
+    "typescript": "^4.4.4",
+    "uuid": "^8.3.2"
   },
   "devDependencies": {
     "@types/csurf": "^1.11.1",
@@ -52,18 +41,8 @@
     "@types/jsonwebtoken": "^8.5.1",
     "@types/morgan": "^1.9.2",
     "@types/multer": "^1.4.5",
-    "@types/mysql2": "github:types/mysql2",
-    "@types/node": "^14.17.12",
-    "@types/nodemailer": "^6.4.2",
-    "@types/passport": "^1.0.6",
-    "@types/passport-local": "^1.0.33",
-    "@types/uuid": "^3.4.7",
-    "@typescript-eslint/eslint-plugin": "^2.34.0",
-    "@typescript-eslint/parser": "^2.34.0",
-    "mysql2": "^1.6.5",
-    "node-ts": "^5.1.1",
+    "@types/node": "^16.11.25",
     "nodemon": "^2.0.7",
-    "standardx": "^7.0.0",
-    "typescript": "^4.4.2"
+    "ts-standard": "^11.0.0"
   }
 }

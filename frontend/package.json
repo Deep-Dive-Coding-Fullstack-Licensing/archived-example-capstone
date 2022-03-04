@@ -6,39 +6,31 @@
     "@fortawesome/fontawesome-svg-core": "^1.2.32",
     "@fortawesome/free-solid-svg-icons": "^5.15.1",
     "@fortawesome/react-fontawesome": "^0.1.12",
-    "@reduxjs/toolkit": "^1.4.0",
-    "@testing-library/jest-dom": "^5.11.5",
-    "@testing-library/react": "^11.1.0",
-    "@testing-library/user-event": "^12.1.10",
-    "axios": "^0.21.0",
+    "@reduxjs/toolkit": "^1.6.2",
+    "axios": "^0.26.0",
     "bootstrap": "^4.5.0",
-    "formik": "^2.2.1",
+    "formik": "^2.2.9",
     "http-proxy-middleware": "^1.0.6",
     "jwt-decode": "^3.1.2",
     "react": "^17.0.2",
     "react-bootstrap": "^1.3.0",
     "react-dom": "^17.0.1",
     "react-dropzone": "^11.3.2",
-    "react-redux": "^7.2.1",
+    "react-redux": "^7.2.6",
     "react-router": "^5.2.0",
     "react-router-bootstrap": "^0.25.0",
     "react-router-dom": "^5.2.0",
-    "react-scripts": "^4.0.3",
-    "standardx": "^5.0.0",
+    "react-scripts": "5.0.0",
+    "standard": "^16.0.4",
     "yup": "^0.32.9"
   },
   "scripts": {
     "start": "react-scripts start",
-    "lint": "npx standardx --lint",
-    "fix": "npx standardx --fix",
+    "lint": "npx standard --lint",
+    "fix": "npx standard --fix",
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject"
-  },
-  "husky": {
-    "hooks": {
-      "pre-commit": "npm run lint"
-    }
   },
   "eslintConfig": {
     "extends": [
