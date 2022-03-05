@@ -1,33 +1,36 @@
-import { Request } from 'express'
-import {v2 as cloudinaryUtils, UploadStream} from 'cloudinary'
-let streamifier = require('streamifier');
-
+import { Express } from 'express'
+import { Readable } from 'stream'
+import { v2 as cloudinaryUtils, UploadStream, UploadApiOptions } from 'cloudinary'
 
 /**
  * helper function that handles uploading images to cloudinary
  *
- * @param { Request} request express request object that contains a file with a buffer
+ * @param {Express.Multer.File} file express request object that contains a file with a buffer
  * @return {string} a string containing a secure_url returned from cloudinaryUtils.
  */
-export const uploadToCloudinary = (request : Request) : Promise<string> => {
 
+export const uploadToCloudinary = async (file: Express.Multer.File): Promise<string> => {
   cloudinaryUtils.config({
     api_key: process.env.CLOUDINARY_KEY,
     api_secret: process.env.CLOUDINARY_SECRET,
-    cloud_name: "cnm-ingenuity-deep-dive-bootcamp"
+    cloud_name: process.env.CLOUD_NAME
   })
 
-  return new Promise((resolve, reject):void => {
-    let cld_upload_stream: UploadStream = cloudinaryUtils.uploader.upload_stream(
-      (error: Error, cloudinaryResult: any) => {
-        if (cloudinaryResult) {
-          resolve(cloudinaryResult.secure_url);
+  return await new Promise((resolve, reject): void => {
+    const cloudinaryUploadStream: UploadStream = cloudinaryUtils.uploader.upload_stream(
+      (error: Error, cloudinaryResult: UploadApiOptions|undefined) => {
+        if (cloudinaryResult !== undefined) {
+          resolve(cloudinaryResult.secure_url)
         } else {
-          reject(error);
+          reject(error)
         }
       }
-    );
-    streamifier.createReadStream(request.file.buffer).pipe(cld_upload_stream);
-  });
+    )
 
+    const readable: Readable = new Readable()
+    readable._read = () => {}
+    readable.push(file.buffer)
+    readable.push(null)
+    readable.pipe(cloudinaryUploadStream)
+  })
 }
