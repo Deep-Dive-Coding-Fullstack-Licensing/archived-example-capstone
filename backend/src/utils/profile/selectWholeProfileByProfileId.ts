@@ -7,5 +7,6 @@ export async function selectWholeProfileByProfileId (profileId: string): Promise
   const sqlQuery: string = 'SELECT BIN_TO_UUID(profileId) as profileId, profileActivationToken,  profileAtHandle, profileAvatarUrl, profileEmail, profileHash,profilePhone FROM profile WHERE profileId = UUID_TO_BIN(:profileId)'
   const result = await mysqlConnection.execute(sqlQuery, { profileId }) as RowDataPacket[]
   const rows: Profile[] = result[0] as Profile[]
+  await mysqlConnection.release()
   return rows.length === 1 ? { ...rows[0] } : null
 }

@@ -1,7 +1,7 @@
 import { Pool, createPool, PoolConnection } from 'mysql2/promise'
 let globalPool: Pool | undefined
 export async function connect (): Promise<PoolConnection> {
-  if (globalPool) {
+  if (globalPool != null) {
     return await globalPool.getConnection()
   }
   globalPool = await createPool({

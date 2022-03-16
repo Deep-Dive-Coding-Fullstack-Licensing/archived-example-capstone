@@ -7,5 +7,6 @@ export async function selectProfileByProfileEmail (profileEmail: string): Promis
   const sqlQuery: string = 'SELECT BIN_TO_UUID(profileId) as profileId, profileActivationToken, profileAtHandle, profileAvatarUrl, profileEmail, profileHash, profilePhone FROM profile WHERE profileEmail = :profileEmail'
   const result = await mysqlConnection.execute(sqlQuery, { profileEmail }) as RowDataPacket[]
   const rows: Profile[] = result[0] as Profile[]
+  await mysqlConnection.release()
   return rows.length === 1 ? { ...rows[0] } : null
 }
