@@ -20,7 +20,7 @@ export const MainNav = () => {
 	const effects = () => {
     dispatch(fetchAuth());
 	};
-	useEffect(effects, []);
+	useEffect(effects, [dispatch]);
 
 	const [show, setShow] = useState(false);
 
@@ -56,7 +56,7 @@ export const MainNav = () => {
 						</div>
 						<SignOutComponent />
 					</NavDropdown>
-				<LinkContainer exact to="/image">
+				<LinkContainer to="/image">
 					<Nav.Link>Image</Nav.Link>
 				</LinkContainer>
 					</>

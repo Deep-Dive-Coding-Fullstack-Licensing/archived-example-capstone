@@ -14,7 +14,7 @@ export const Profile = () => {
 		dispatch(fetchProfileByProfileId())
 	}
 
-	React.useEffect(sideEffects, [])
+	React.useEffect(sideEffects, [dispatch])
 	return(
 		<>
 			<Container>

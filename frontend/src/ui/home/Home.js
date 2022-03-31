@@ -8,12 +8,12 @@ import {fetchAllTweets} from "../../store/tweets";
 export const Home = () => {
 
 	const tweets = useSelector(state => state.tweets ? state.tweets : []);
+	console.log(tweets)
 	const dispatch = useDispatch();
 	const effects = () => {
 		dispatch(fetchAllTweets());
 	};
-	const inputs = [];
-	useEffect(effects, inputs);
+	useEffect(effects, [dispatch]);
 
 	return (
 		<>

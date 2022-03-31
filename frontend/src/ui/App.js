@@ -21,8 +21,9 @@ import {
 
 library.add(faStroopwafel, faEnvelope, faKey, faDove, faPhone, faPencilAlt, faSignOutAlt, faUser);
 
-export const App = (store) => (
+export const App = ({store}) => (
 	<>
+		<React.StrictMode>
 		<Provider store={store}>
 			<BrowserRouter>
 				<MainNav/>
@@ -34,5 +35,6 @@ export const App = (store) => (
 				</Routes>
 			</BrowserRouter>
 		</Provider>
+		</React.StrictMode>
 	</>
 );
