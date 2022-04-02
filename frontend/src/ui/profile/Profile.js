@@ -17,10 +17,15 @@ export const Profile = () => {
 	React.useEffect(sideEffects, [dispatch])
 	return(
 		<>
-			<Container>
+			<Container className='p-5'>
 				<Row>
 					<Col>
-						{profile && <EditProfileForm profile={profile}/>}
+						{profile &&
+							<>
+
+							<EditProfileForm profile={profile}/>
+						</>
+						}
 					</Col>
 
 				</Row>
