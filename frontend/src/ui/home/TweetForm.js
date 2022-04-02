@@ -65,7 +65,7 @@ function TweetFormContent(props) {
 	} = props;
 	return (
 		<>
-			<Form className="border border-light border-2" onSubmit={handleSubmit}>
+			<Form onSubmit={handleSubmit}>
 				{/*controlId must match what is passed to the initialValues prop*/}
 
 				<Form.Group className="mb-1" controlId="tweetContent">

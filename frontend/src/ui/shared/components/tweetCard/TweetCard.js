@@ -20,10 +20,10 @@ export const TweetCard = ({tweet}) => {
 			);
 	}
 	return (
-		<div>
-			<Row>
-				<Col xs={1}>
-			<Image src={tweet.profileAvatarUrl} roundedCircle fluid/>
+		<>
+			<Row className=" border border-light rounded px-4">
+				<Col xs={2}  sm={2} md={1} lg={1} xl={1} xxl={1}>
+			<Image src={tweet.profileAvatarUrl}  width={60} height={60} roundedCircle fluid/>
 				</Col>
 				<Col>
 					<strong>{tweet.profileAtHandle}</strong> {new Date(tweet.tweetDate).toDateString()}
@@ -32,7 +32,7 @@ export const TweetCard = ({tweet}) => {
 					{/*{logged in profile id === tweet.tweetProfileId ? <button onclick={deleteTweet}>Delete</button> : ""}*/}
 				</Col>
 			</Row>
-		</div>
+		</>
 
 	)
 };
