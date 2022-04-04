@@ -5,7 +5,6 @@ import { Like } from '../../utils/interfaces/Like'
 import { selectLikeByLikeId } from '../../utils/like/selectLikeByLikeId'
 import { deleteLike } from '../../utils/like/deleteLike'
 import { insertLike } from '../../utils/like/insertLike'
-import { selectTweetsByTweetProfileId } from '../../utils/tweet/selectTweetsByTweetProfileId'
 import { selectLikesByLikeTweetId } from '../../utils/like/selectLikesByLikeTweetId'
 
 export async function getLikesByLikeTweetId (request: Request, response: Response, nextFunction: NextFunction): Promise<Response<Status>> {
@@ -34,7 +33,7 @@ export async function toggleLikeController (request: Request, response: Response
       likeDate: null
     }
 
-    let status: Status = {
+    const status: Status = {
       status: 200,
       message: '',
       data: null
@@ -46,7 +45,6 @@ export async function toggleLikeController (request: Request, response: Response
     } else {
       status.message = await deleteLike(like)
     }
-
 
     return response.json(status)
   } catch (error: any) {
