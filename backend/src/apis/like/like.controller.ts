@@ -33,18 +33,21 @@ export async function toggleLikeController (request: Request, response: Response
       likeTweetId,
       likeDate: null
     }
-    const selectedLike: Like|null = await selectLikeByLikeId(like)
-    if (selectedLike === null) {
-      await insertLike(like)
-    } else {
-      await deleteLike(like)
-    }
 
-    const status: Status = {
+    let status: Status = {
       status: 200,
-      message: 'Like successfully updated',
+      message: '',
       data: null
     }
+
+    const selectedLike: Like|null = await selectLikeByLikeId(like)
+    if (selectedLike === null) {
+      status.message = await insertLike(like)
+    } else {
+      status.message = await deleteLike(like)
+    }
+
+
     return response.json(status)
   } catch (error: any) {
     return (response.json({ status: 500, data: null, message: error.message }))
