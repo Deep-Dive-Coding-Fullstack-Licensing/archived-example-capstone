@@ -1,6 +1,6 @@
 import React, {useEffect} from 'react';
 import {useSelector, useDispatch} from "react-redux";
-import {TweetCard} from "../shared/components/tweetCard/TweetCard";
+import {TweetCard} from "./TweetCard";
 import {TweetForm} from "./TweetForm";
 import {Container, Row, Col} from "react-bootstrap"
 import {fetchAllTweets} from "../../store/tweets";

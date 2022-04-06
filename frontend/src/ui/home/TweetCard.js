@@ -1,8 +1,8 @@
 import React from 'react';
 import {Col, Image, Row} from "react-bootstrap";
-import {httpConfig} from "../../utils/http-config";
+import {httpConfig} from "../shared/utils/httpConfig";
 import {useDispatch} from "react-redux";
-import {getAllTweets} from "../../../../store/tweets";
+import {getAllTweets} from "../../store/tweets";
 
 export const TweetCard = ({tweet}) => {
 

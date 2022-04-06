@@ -1,12 +1,12 @@
 import React from 'react'
 import * as Yup from 'yup'
-import { httpConfig } from '../shared/utils/http-config'
+import { httpConfig } from '../shared/utils/httpConfig'
 import { Formik } from 'formik'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { FormDebugger } from '../shared/components/FormDebugger'
-import { Form, FormControl, Image, InputGroup } from 'react-bootstrap'
-import { DisplayError } from '../shared/components/DisplayError'
+import { Button, Form, FormControl, Image, InputGroup } from 'react-bootstrap'
 import { useDropzone } from 'react-dropzone'
+import { DisplayError } from '../shared/components/display-error/DisplayError'
+import { DisplayStatus } from '../shared/components/display-status/DisplayStatus'
 
 export const EditProfileForm = (props) => {
   const { profile } = props
@@ -134,19 +134,18 @@ function EditProfileFormContent (props) {
             fieldValue: 'profileAvatarUrl'
           }}
         />
-        <button className="btn btn-primary mb-2" type="submit">Submit</button>
+        <Form.Group className={"mt-3"}>
+        <Button className="btn btn-primary" type="submit">Submit</Button>
         {' '}
-        <button
-          className="btn btn-danger mb-2"
+        <Button
+          className="btn btn-danger"
           onClick={handleReset}
           disabled={!dirty || isSubmitting}
         >Reset
-        </button>
+        </Button>
+        </Form.Group>
       </Form>
-
-      {
-        status && (<div className={status.type}>{status.message}</div>)
-      }
+      <DisplayStatus status={status} />
     </>
 
   )

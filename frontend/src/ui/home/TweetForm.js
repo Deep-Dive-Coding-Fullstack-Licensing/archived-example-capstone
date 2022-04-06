@@ -1,11 +1,13 @@
 import React from 'react';
-import {httpConfig} from "../shared/utils/http-config";
+import {httpConfig} from "../shared/utils/httpConfig";
 import * as Yup from "yup";
 import {Formik} from "formik";
 import { useSelector, useDispatch } from 'react-redux'
 import {fetchAllTweets} from "../../store/tweets";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { Form, FormControl, InputGroup } from 'react-bootstrap'
+import { DisplayError } from '../shared/components/display-error/DisplayError'
+import { DisplayStatus } from '../shared/components/display-status/DisplayStatus'
 
 export const TweetForm = () => {
 	const tweet = {
@@ -65,7 +67,7 @@ function TweetFormContent(props) {
 	} = props;
 	return (
 		<>
-			<Form onSubmit={handleSubmit}>
+			<Form className={"mb-3"} onSubmit={handleSubmit}>
 				{/*controlId must match what is passed to the initialValues prop*/}
 
 				<Form.Group className="mb-1" controlId="tweetContent">
@@ -85,16 +87,11 @@ function TweetFormContent(props) {
 
 						/>
 					</InputGroup>
-					{
-						errors.tweetContent && touched.tweetContent && (
-							<output className="alert alert-danger">
-								{errors.tweetContent}
-							</output>
-						)
-					}
-				</Form.Group>
 
-				<Form.Group>
+				</Form.Group>
+				<DisplayError errors={errors} touched={touched} field={"tweetContent"} />
+
+				<Form.Group className={"mt-3"}>
 					<button
 						className="btn btn-primary"
 						type="submit"
@@ -109,15 +106,13 @@ function TweetFormContent(props) {
 					>Reset
 					</button>
 				</Form.Group>
-
-
-				{/*<FormDebugger {...props} />*/}
 			</Form>
-			{
-				status && (<output className={status.type}>{status.message}</output>)
-			}
+			<DisplayStatus status={status} />
 		</>
 
 
 	)
 }
+
+
+

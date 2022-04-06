@@ -1,7 +1,6 @@
 import React from 'react'
 import {Home} from "./home/Home";
 import {Profile} from "./profile/Profile";
-import {Image} from "./image/Image"
 import {FourOhFour} from "./four-oh-four/FourOhFour";
 import {MainNav} from "./shared/components/main-nav/MainNav";
 import 'bootstrap/dist/css/bootstrap.css';
@@ -29,7 +28,6 @@ export const App = ({store}) => (
 				<MainNav/>
 				<Routes>
 					<Route path="/profile/:profileHandle" element={<Profile />} />
-					<Route path="/image" element={<Image />} />
 					<Route path="/" element={<Home />} />
 					<Route element={<FourOhFour />} />
 				</Routes>

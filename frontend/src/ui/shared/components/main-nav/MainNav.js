@@ -56,9 +56,6 @@ export const MainNav = () => {
 						</div>
 						<SignOutComponent />
 					</NavDropdown>
-				<LinkContainer to="/image">
-					<Nav.Link>Image</Nav.Link>
-				</LinkContainer>
 					</>
 					)}
 				{isModalOpen()  &&  (

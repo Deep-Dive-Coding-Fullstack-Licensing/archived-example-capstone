@@ -1,5 +1,5 @@
 import React from 'react';
-import {httpConfig} from "../../../utils/http-config";
+import {httpConfig} from "../../../utils/httpConfig";
 import {Formik} from "formik";
 import * as Yup from "yup";
 import {useDispatch} from "react-redux";
@@ -7,6 +7,10 @@ import jwtDecode from 'jwt-decode'
 import { getAuth } from '../../../../../store/auth'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { FormDebugger } from '../../FormDebugger'
+import { Button, Form, FormControl, InputGroup } from 'react-bootstrap'
+import { DisplayError } from '../../display-error/DisplayError'
+import { DisplayStatus } from '../../display-status/DisplayStatus'
+
 
 export const SignInForm = () => {
 
@@ -14,11 +18,11 @@ export const SignInForm = () => {
 
 	const validator = Yup.object().shape({
 		profileEmail: Yup.string()
-			.email("email must be a valid email")
+			.email("please provide a valid email")
 			.required('email is required'),
 		profilePassword: Yup.string()
-			.required("Password is required")
-			.min(8, "Password must be at least eight characters")
+			.required("password is required")
+			.min(8, "password must be at least eight characters")
 	});
 
 
@@ -72,75 +76,64 @@ function SignInFormContent(props) {
 	} = props;
 	return (
 		<>
-			<form onSubmit={handleSubmit}>
+
+			<Form onSubmit={handleSubmit}>
 				{/*controlId must match what is passed to the initialValues prop*/}
-				<div className="form-group">
-					<label htmlFor="profileEmail">Email Address</label>
-					<div className="input-group">
-						<div className="input-group-prepend">
-							<div className="input-group-text">
-								<FontAwesomeIcon icon="envelope"/>
-							</div>
-						</div>
-						<input
+				<Form.Group className="mb-1" controlId="profileEmail">
+				<Form.Label>email</Form.Label>
+					<InputGroup>
+						<InputGroup.Text>
+							<FontAwesomeIcon icon="envelope"/>
+						</InputGroup.Text>
+						<FormControl
 							className="form-control"
-							id="profileEmail"
-							type="email"
+							name="profileEmail"
+							type="text"
 							value={values.profileEmail}
-							placeholder="Enter email"
+							placeholder="your@email.you"
 							onChange={handleChange}
 							onBlur={handleBlur}
 
 						/>
-					</div>
-					{
-						errors.profileEmail && touched.profileEmail && (
-							<div className="alert alert-danger">
-								{errors.profileEmail}
-							</div>
-						)
+					</InputGroup>
+					<DisplayError errors={errors} touched={touched} field={"profileEmail"} />
+				</Form.Group>
 
-					}
-				</div>
+				<FontAwesomeIcon icon="key"/>
 				{/*controlId must match what is defined by the initialValues object*/}
-				<div className="form-group">
-					<label htmlFor="profilePassword">Password</label>
-					<div className="input-group">
-						<div className="input-group-prepend">
-							<div className="input-group-text">
+				<Form.Group className="mb-1" controlId="profileAtHandle">
+					<Form.Label>password</Form.Label>
+						<InputGroup>
+							<InputGroup.Text>
 								<FontAwesomeIcon icon="key"/>
-							</div>
-						</div>
-						<input
-							id="profilePassword"
-							className="form-control"
-							type="password"
-							placeholder="Password"
-							value={values.profilePassword}
-							onChange={handleChange}
-							onBlur={handleBlur}
-						/>
-					</div>
-					{errors.profilePassword && touched.profilePassword && (
-						<div className="alert alert-danger">{errors.profilePassword}</div>
-					)}
-				</div>
+							</InputGroup.Text>
+							<FormControl
+								className="form-control"
+								name="profilePassword"
+								type="text"
+								value={values.profilePassword}
+								placeholder="p@ssword1"
+								onChange={handleChange}
+								onBlur={handleBlur}
 
-				<div className="form-group">
-					<button className="btn btn-primary mb-2" type="submit">Submit</button>
-					<button
-						className="btn btn-danger mb-2"
+							/>
+						</InputGroup>
+						<DisplayError errors={errors} touched={touched} field={"profilePassword"} />
+				</Form.Group>
+
+<Form.Group className={"mt-3"}>
+					<Button className="btn btn-primary" type="submit">Submit</Button>
+	{" "}
+					<Button
+						className="btn btn-danger"
 						onClick={handleReset}
 						disabled={!dirty || isSubmitting}
 					>Reset
-					</button>
-				</div>
-				<FormDebugger {...props} />
-			</form>
-			{status && (<div className={status.type}>{status.message}</div>)}
+					</Button>
+</Form.Group>
+			</Form>
+		<DisplayStatus status={status} />
 		</>
 	)
 }
-
-
 
