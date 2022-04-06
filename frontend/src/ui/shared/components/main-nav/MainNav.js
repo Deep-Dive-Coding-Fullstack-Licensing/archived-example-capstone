@@ -13,15 +13,14 @@ import {fetchAuth} from "../../../../store/auth";
 import { SignOutComponent } from './SignOut'
 
 
-export const MainNav = (props) => {
+export const MainNav = () => {
 
 	const auth = useSelector(state => state.auth);
 	const dispatch = useDispatch()
 	const effects = () => {
     dispatch(fetchAuth());
 	};
-	const inputs = [];
-	useEffect(effects, inputs);
+	useEffect(effects, [dispatch]);
 
 	const [show, setShow] = useState(false);
 
@@ -41,7 +40,7 @@ export const MainNav = (props) => {
 	return(
 		<Navbar bg="primary" variant="dark">
 			<Container>
-			<LinkContainer exact to="/" >
+			<LinkContainer to="/" >
 				<Navbar.Brand>Tweeter</Navbar.Brand>
 			</LinkContainer>
 			<Nav className="mr-auto">
@@ -57,9 +56,6 @@ export const MainNav = (props) => {
 						</div>
 						<SignOutComponent />
 					</NavDropdown>
-				<LinkContainer exact to="/image">
-					<Nav.Link>Image</Nav.Link>
-				</LinkContainer>
 					</>
 					)}
 				{isModalOpen()  &&  (
