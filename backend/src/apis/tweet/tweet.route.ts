@@ -7,7 +7,9 @@ import {
   postTweet
 } from './tweet.controller'
 import { asyncValidatorController } from '../../utils/controllers/asyncValidator.controller'
-import { check } from 'express-validator'
+import { check, checkSchema } from 'express-validator'
+import { isLoggedIn } from '../../utils/controllers/isLoggedIn.controller'
+import { tweetValidator } from './tweet.validator'
 
 const router = Router()
 router.route('/:tweetId').get(asyncValidatorController([
@@ -21,6 +23,6 @@ router.route('/tweetProfileId/:tweetProfileId').get(asyncValidatorController([
 // Every new route is instantiated below. It will include the controller name and the type of action (get, post, delete, put, patch)
 router.route('/')
   .get(getAllTweetsController)
-  .post(postTweet)
+  .post(isLoggedIn,asyncValidatorController(checkSchema((tweetValidator))) ,postTweet)
 
 export default router
