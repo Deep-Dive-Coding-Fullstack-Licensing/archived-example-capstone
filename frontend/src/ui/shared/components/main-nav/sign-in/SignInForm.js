@@ -132,7 +132,9 @@ function SignInFormContent(props) {
 					</Button>
 </Form.Group>
 			</Form>
+			<div className="pt-3">
 		<DisplayStatus status={status} />
+				</div>
 		</>
 	)
 }
