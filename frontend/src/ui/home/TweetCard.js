@@ -1,10 +1,18 @@
 import React from 'react';
 import {Col, Image, Row} from "react-bootstrap";
 import {httpConfig} from "../shared/utils/httpConfig";
-import {useDispatch} from "react-redux";
-import {getAllTweets} from "../../store/tweets";
+import { useDispatch, useSelector } from 'react-redux'
+import {setAllTweets} from "../../store/tweets";
 
 export const TweetCard = ({tweet}) => {
+
+	const likes = useSelector(state => {
+		if ( state.likes[tweet.tweetId] === undefined) {
+			return []
+		}else{
+			return state.likes[tweet.tweetId]
+		}
+	})
 
 	const dispatch = useDispatch()
 
@@ -13,12 +21,15 @@ export const TweetCard = ({tweet}) => {
 			.then(reply => {
 					if(reply.status === 200) {
 						console.log(reply)
-						dispatch(getAllTweets())
+						dispatch(setAllTweets())
 					}
 				console.log(reply)
 				}
 			);
 	}
+
+	console.log(likes)
+
 	return (
 		<>
 			<Row className=" border border-light rounded px-4">
@@ -28,7 +39,7 @@ export const TweetCard = ({tweet}) => {
 				<Col>
 					<strong>{tweet.profileAtHandle}</strong> {new Date(tweet.tweetDate).toDateString()}
 					<p>{tweet.tweetContent}</p>
-					<button onClick={clickLike}>{tweet.likeCount}<span role="img" aria-label="heart emoji">❤️</span></button>
+					<button onClick={clickLike}>{likes.length}<span role="img" aria-label="heart emoji">❤️</span></button>
 					{/*{logged in profile id === tweet.tweetProfileId ? <button onclick={deleteTweet}>Delete</button> : ""}*/}
 				</Col>
 			</Row>
