@@ -11,8 +11,11 @@ import { SignOutRoute } from './apis/sign-out/sign-out.route'
 import { ProfileRoute } from './apis/profile/profile.route'
 import { ImageUploadRouter } from './apis/image-upload/image-upload.route'
 import session from 'express-session'
-import createMemoryStore from 'memorystore'
-const MemoryStore = createMemoryStore(session)
+import { createClient, RedisClientType } from 'redis'
+import RedisConnect from "connect-redis"
+const redisClient = createClient({legacyMode: true, socket:{host: process.env.REDIS_HOST}})
+redisClient.connect().catch(console.error)
+const RedisStore = RedisConnect(session)
 
 // The following class creates the frontend and instantiates the server
 export class App {
@@ -35,15 +38,11 @@ export class App {
   // private method to setting up the middleware to handle json responses, one for dev and one for prod
   private middlewares (): void {
     const sessionConfig = {
-      store: new MemoryStore({
-        checkPeriod: 100800
-      }),
-      secret: 'secret',
-      saveUninitialized: true,
-      resave: true,
-      maxAge: '3h'
+      store: new RedisStore({ client: redisClient, host: process.env.REDIS_HOST, port: 6379}),
+      saveUninitialized: false,
+      secret: process.env.SESSION_SECRET as string,
+      resave: false,
     }
-
     this.app.use(morgan('dev'))
     this.app.use(express.json())
     this.app.use(session(sessionConfig))
@@ -67,3 +66,5 @@ export class App {
     console.log('Server on port', this.app.get('port'))
   }
 }
+
+
