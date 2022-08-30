@@ -5,7 +5,7 @@ module.exports = function(app) {
 		'/apis',
 		createProxyMiddleware({
 			logLevel: 'debug',
-			target: "http://138.197.213.195:8080/",
+			target: "http://localhost:8080",
 			changeOrigin: true,
 		})
 	);
