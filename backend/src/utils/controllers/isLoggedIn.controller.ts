@@ -1,7 +1,7 @@
 import { NextFunction, Request, Response } from 'express'
 import { verify, VerifyErrors } from 'jsonwebtoken'
 import { Status } from '../interfaces/Status'
-import { Profile } from '../interfaces/Profile'
+import { Profile } from '../models/Profile'
 import { IncomingHttpHeaders } from 'http'
 
 export function isLoggedIn (request: Request, response: Response, next: NextFunction): any {
