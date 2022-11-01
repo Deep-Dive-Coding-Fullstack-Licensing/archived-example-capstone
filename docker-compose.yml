@@ -14,14 +14,13 @@ services:
 
   sql:
     build: ./sql
+    ports:
+      - 54321:5432
     platform: linux/x86_64
     volumes:
-      - mysql:/var/lib/mysql
+      - sql:/var/lib/postgresql/data/
     env_file:
       - ./.env
-    command: --default-authentication-plugin=mysql_native_password
-    ports:
-      - 33006:3306
   app:
     build: frontend
     depends_on:
@@ -40,7 +39,7 @@ services:
       - ./backend/src:/home/node/app/src
       - ./backend/tsconfig.json:/home/node/app/tsconfig.json
 volumes:
-  mysql:
+  sql:
     driver: local
   redis:
     driver: local

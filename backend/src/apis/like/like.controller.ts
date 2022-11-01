@@ -1,11 +1,7 @@
 import { NextFunction, Request, Response } from 'express'
 import { Status } from '../../utils/interfaces/Status'
-import { Profile } from '../../utils/interfaces/Profile'
-import { Like } from '../../utils/interfaces/Like'
-import { selectLikeByLikeId } from '../../utils/like/selectLikeByLikeId'
-import { deleteLike } from '../../utils/like/deleteLike'
-import { insertLike } from '../../utils/like/insertLike'
-import { selectLikesByLikeTweetId } from '../../utils/like/selectLikesByLikeTweetId'
+import { Profile } from '../../utils/models/Profile'
+import { deleteLike, insertLike, Like, selectLikeByLikeId, selectLikesByLikeTweetId } from '../../utils/models/Like'
 
 export async function getLikesByLikeTweetId (request: Request, response: Response, nextFunction: NextFunction): Promise<Response<Status>> {
   try {

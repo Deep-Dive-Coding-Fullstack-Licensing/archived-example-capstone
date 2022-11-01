@@ -1,7 +1,5 @@
 import { NextFunction, Request, Response } from 'express'
-import { selectProfileByProfileActivationToken } from '../../utils/profile/selectProfileByProfileActivationToken'
-import { Profile } from '../../utils/interfaces/Profile'
-import { updateProfile } from '../../utils/profile/updateProfile'
+import { Profile, selectProfileByProfileActivationToken, updateProfile } from '../../utils/models/Profile'
 import { Status } from '../../utils/interfaces/Status'
 
 export async function activationController (request: Request, response: Response, nextFunction: NextFunction): Promise<Response<Status>> {

@@ -1,14 +1,14 @@
 import { Request, Response, NextFunction } from 'express'
-
-// Interfaces (represent the DB model and types of the columns associated with a specific DB table)
-import { Tweet } from '../../utils/interfaces/Tweet'
+import {
+  insertTweet,
+  selectAllTweets,
+  selectTweetByTweetId,
+  selectTweetsByTweetProfileId,
+  Tweet
+} from '../../utils/models/Tweet'
 import { Status } from '../../utils/interfaces/Status'
-import { Profile } from '../../utils/interfaces/Profile'
-import { insertTweet } from '../../utils/tweet/insertTweet'
-// import { selectAllTweetsWithProfileAndLikes } from '../../utils/tweet/selectAllTweetsWithProfileAndLikes'
-import { selectTweetsByTweetProfileId } from '../../utils/tweet/selectTweetsByTweetProfileId'
-import { selectTweetByTweetId } from '../../utils/tweet/selectTweetByTweetId'
-import { selectAllTweets } from '../../utils/tweet/selectAllTweets'
+import { Profile } from '../../utils/models/Profile'
+
 
 export async function getAllTweetsController (request: Request, response: Response): Promise<Response<Status>> {
   try {
