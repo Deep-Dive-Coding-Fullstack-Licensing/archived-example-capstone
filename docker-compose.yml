@@ -1,16 +1,26 @@
 version: "3"
 
 services:
-  sql:
-    build: ./sql
-    platform: linux/x86_64
+  redis:
+    image: 'redis:alpine'
+    ports:
+      - '${FORWARD_REDIS_PORT:-6379}:6379'
     volumes:
-      - tweeter:/var/lib/mysql
+      - 'redis:/data'
     env_file:
       - ./.env
-    command: --default-authentication-plugin=mysql_native_password
+    healthcheck:
+      test: [ "CMD", "redis-cli", "ping"]
+
+  sql:
+    build: ./sql
     ports:
-      - 33006:3306
+      - 54321:5432
+    platform: linux/x86_64
+    volumes:
+      - sql:/var/lib/postgresql/data/
+    env_file:
+      - ./.env
   app:
     build: frontend
     depends_on:
@@ -29,4 +39,7 @@ services:
       - ./backend/src:/home/node/app/src
       - ./backend/tsconfig.json:/home/node/app/tsconfig.json
 volumes:
-  tweeter:
+  sql:
+    driver: local
+  redis:
+    driver: local

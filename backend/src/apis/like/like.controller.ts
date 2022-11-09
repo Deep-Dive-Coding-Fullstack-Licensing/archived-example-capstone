@@ -1,45 +1,49 @@
-import {Request, Response} from 'express';
+import { NextFunction, Request, Response } from 'express'
+import { Status } from '../../utils/interfaces/Status'
+import { Profile } from '../../utils/models/Profile'
+import { deleteLike, insertLike, Like, selectLikeByLikeId, selectLikesByLikeTweetId } from '../../utils/models/Like'
 
-// DB
+export async function getLikesByLikeTweetId (request: Request, response: Response, nextFunction: NextFunction): Promise<Response<Status>> {
+  try {
+    const { likeTweetId } = request.params
+    const data = await selectLikesByLikeTweetId(likeTweetId)
+    return response.json({ status: 200, message: null, data })
+  } catch (error) {
+    return response.json({
+      status: 500,
+      message: '',
+      data: []
+    })
+  }
+}
 
-// Interfaces (represent the DB model and types of the columns associated with a specific DB table)
-import {Status} from '../../utils/interfaces/Status';
-import {Profile} from "../../utils/interfaces/Profile";
-import {Like} from "../../utils/interfaces/Like";
-import {selectLikeByLikeId} from "../../utils/like/selectLikeByLikeId";
-import {deleteLike} from "../../utils/like/deleteLike";
-import {insertLike} from "../../utils/like/insertLike";
+export async function toggleLikeController (request: Request, response: Response): Promise<Response<string>> {
+  try {
+    const { likeTweetId } = request.body
+    const profile = request.session.profile as Profile
+    const likeProfileId = profile.profileId as string
 
+    const like: Like = {
+      likeProfileId,
+      likeTweetId,
+      likeDate: null
+    }
 
-export async function toggleLikeController(request: Request, response: Response): Promise<Response<string>> {
+    const status: Status = {
+      status: 200,
+      message: '',
+      data: null
+    }
 
-	try {
+    const selectedLike: Like|null = await selectLikeByLikeId(like)
+    if (selectedLike === null) {
+      status.message = await insertLike(like)
+    } else {
+      status.message = await deleteLike(like)
+    }
 
-		const {likeTweetId} = request.body;
-		const profile = <Profile>request.session.profile
-		const likeProfileId = <string>profile.profileId
-
-		const like: Like = {
-			likeProfileId,
-			likeTweetId,
-			likeDate: null,
-		}
-		const select = await selectLikeByLikeId(like)
-		// @ts-ignore
-		if (select[0]){
-			const result = await deleteLike(like)
-		}else{
-			const result = await insertLike(like)
-		}
-
-		const status: Status = {
-			status: 200,
-			message: 'Like successfully updated',
-			data: null
-		};
-		return response.json(status);
-
-	} catch(error: any) {
-		return(response.json({status: 500, data: null, message: error.message}))
-	}
+    return response.json(status)
+  } catch (error: any) {
+    return (response.json({ status: 500, data: null, message: error.message }))
+  }
 }

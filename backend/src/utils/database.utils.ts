@@ -1,19 +1,12 @@
-import {createPool, Pool} from 'mysql2/promise';
-require('dotenv').config();
+const postgres = require('postgres')
 
-let globalPool: Pool | undefined = undefined
-
-export async function connect () : Promise<Pool> {
-  if (globalPool){
-    return globalPool
-  }
-  globalPool = await createPool({
-    host: process.env.MYSQL_HOST,
-    user: process.env.MYSQL_USER,
-    password: process.env.MYSQL_PASSWORD,
-    database: process.env.MYSQL_DATABASE,
-    connectionLimit: 10,
-    namedPlaceholders: true
-  });
-  return globalPool
-}
+export const sql = postgres({
+    user: process.env.POSTGRES_USER,
+    host: process.env.POSTGRES_HOST,
+    database: process.env.POSTGRES_DB,
+    password: process.env.POSTGRES_PASSWORD,
+    transform: {
+      table: { to: postgres.fromCamel, from: postgres.toCamel },
+      column: { to: postgres.fromCamel, from: postgres.toCamel }
+    }
+  })

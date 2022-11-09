@@ -1,9 +1,9 @@
-import { Router } from 'express';
-import { indexWelcome } from './index.controller';
+import { Router } from 'express'
+import { indexWelcome } from './index.controller'
 
-const router : Router = Router();
+const router: Router = Router()
 
 router.route('/')
-  .get(indexWelcome);
+  .get(indexWelcome)
 
-export default router;
+export default router

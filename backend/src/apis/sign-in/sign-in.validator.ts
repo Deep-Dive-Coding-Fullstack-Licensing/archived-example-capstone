@@ -1,6 +1,6 @@
-import {Schema} from 'express-validator';
+import { Schema } from 'express-validator'
 
-export const signInValidator : Schema = {
+export const signInValidator: Schema = {
   profilePassword: {
     isLength: {
       errorMessage: 'Password must be at least eight characters',
@@ -17,4 +17,4 @@ export const signInValidator : Schema = {
     // normalizeEmail: true,
     trim: true
   }
-};
+}

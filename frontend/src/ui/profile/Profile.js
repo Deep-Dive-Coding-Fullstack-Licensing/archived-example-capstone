@@ -1,26 +1,30 @@
 import React from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { EditProfileForm } from './EditProfileForm'
-import { fetchProfileByProfileId } from '../../store/profile'
+import { fetchCurrentUser } from '../../store/currentUser'
 import Container from 'react-bootstrap/Container'
 import Row from 'react-bootstrap/Row'
 import Col from 'react-bootstrap/Col'
 export const Profile = () => {
 
 	const dispatch = useDispatch()
-	const profile = useSelector(state => {return state.profile ? state.profile : null})
+	const profile = useSelector(state => {return state.currentUser ? state.currentUser : null})
 
 	const sideEffects = () => {
-		dispatch(fetchProfileByProfileId())
+		dispatch(fetchCurrentUser())
 	}
 
-	React.useEffect(sideEffects, [])
+	React.useEffect(sideEffects, [dispatch])
 	return(
 		<>
-			<Container>
+			<Container className='p-5'>
 				<Row>
 					<Col>
-						{profile && <EditProfileForm profile={profile}/>}
+						{profile &&
+							<>
+							<EditProfileForm profile={profile}/>
+						</>
+						}
 					</Col>
 
 				</Row>
