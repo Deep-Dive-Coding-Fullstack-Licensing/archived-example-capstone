@@ -1,15 +1,15 @@
 import express, { Application } from 'express'
-import TweetRoute from './apis/tweet/tweet.route'
-import SignupRoute from './apis/sign-up/signup.route'
-import LikeRoute from './apis/like/like.route'
+import TweetRoute from './apis/tweet/tweet.route.js'
+import SignupRoute from './apis/sign-up/signup.route.js'
+import LikeRoute from './apis/like/like.route.js'
 import morgan from 'morgan'
 
 // Routes
-import IndexRoutes from './apis/index.route'
-import { SignInRouter } from './apis/sign-in/sign-in.route'
-import { SignOutRoute } from './apis/sign-out/sign-out.route'
-import { ProfileRoute } from './apis/profile/profile.route'
-import { ImageUploadRouter } from './apis/image-upload/image-upload.route'
+import IndexRoutes from './apis/index.route.js'
+import { SignInRouter } from './apis/sign-in/sign-in.route.js'
+import { SignOutRoute } from './apis/sign-out/sign-out.route.js'
+import { ProfileRoute } from './apis/profile/profile.route.js'
+import { ImageUploadRouter } from './apis/image-upload/image-upload.route.js'
 import session from 'express-session'
 import { createClient, RedisClientType } from 'redis'
 import RedisConnect from "connect-redis"

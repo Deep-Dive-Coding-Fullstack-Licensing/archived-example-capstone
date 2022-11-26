@@ -5,9 +5,9 @@ import {
   selectTweetByTweetId,
   selectTweetsByTweetProfileId,
   Tweet
-} from '../../utils/models/Tweet'
-import { Status } from '../../utils/interfaces/Status'
-import { Profile } from '../../utils/models/Profile'
+} from '../../utils/models/Tweet.js'
+import { Status } from '../../utils/interfaces/Status.js'
+import { Profile } from '../../utils/models/Profile.js'
 
 
 export async function getAllTweetsController (request: Request, response: Response): Promise<Response<Status>> {

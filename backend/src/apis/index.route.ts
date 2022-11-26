@@ -1,5 +1,5 @@
 import { Router } from 'express'
-import { indexWelcome } from './index.controller'
+import { indexWelcome } from './index.controller.js'
 
 const router: Router = Router()
 

@@ -1,17 +1,19 @@
 {
-  "name": "ddcpassport",
-  "version": "1.0.0",
+  "name": "tweeter",
+  "version": "2.0.0",
   "description": "",
   "main": "index.js",
   "scripts": {
-    "compile": "ts-node ./src/index.ts",
+    "compile": "ts-node --esm src/index.ts",
     "dev": "./node_modules/nodemon/bin/nodemon.js -e ts  --exec \"npm run compile\"",
     "test": "echo \\\"Error: no src/test specified\\\" && exit 1",
     "clean": "ts-standard --fix",
     "lint": "ts-standard"
   },
+
   "keywords": [],
   "author": "George Kephart",
+  "type": "module",
   "license": "Apache-2.0",
   "dependencies": {
     "argon2": "^0.27.0",
@@ -20,6 +22,7 @@
     "connect-redis": "^6.1.3",
     "cookie-parser": "^1.4.5",
     "csurf": "^1.11.0",
+    "csv-parser": "^3.0.0",
     "express": "^4.17.1",
     "express-session": "^1.17.2",
     "express-validator": "^6.12.1",
@@ -31,7 +34,7 @@
     "multer": "^1.4.4",
     "postgres": "^3.2.4",
     "redis": "4.0.6",
-    "ts-node": "^10.5.0",
+    "ts-node": "^10.9.1",
     "typescript": "^4.4.4",
     "uuid": "^8.3.2"
   },
@@ -43,7 +46,7 @@
     "@types/jsonwebtoken": "^8.5.1",
     "@types/morgan": "^1.9.2",
     "@types/multer": "^1.4.5",
-    "@types/node": "^16.11.25",
+    "@types/node": "^18.11.9",
     "@types/uuid": "^8.3.4",
     "nodemon": "^2.0.7",
     "ts-standard": "^11.0.0"

@@ -5,11 +5,11 @@ import {
   getTweetByTweetIdController,
   getTweetsByTweetProfileIdController,
   postTweet
-} from './tweet.controller'
-import { asyncValidatorController } from '../../utils/controllers/asyncValidator.controller'
+} from './tweet.controller.js'
+import { asyncValidatorController } from '../../utils/controllers/asyncValidator.controller.js'
 import { check, checkSchema } from 'express-validator'
-import { isLoggedIn } from '../../utils/controllers/isLoggedIn.controller'
-import { tweetValidator } from './tweet.validator'
+import { isLoggedIn } from '../../utils/controllers/isLoggedIn.controller.js'
+import { tweetValidator } from './tweet.validator.js'
 
 const router = Router()
 router.route('/:tweetId').get(asyncValidatorController([
