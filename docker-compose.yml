@@ -19,13 +19,13 @@ services:
       - sql:/var/lib/postgresql/data/
     env_file:
       - ./.env
-  app:
-    build: frontend
-    depends_on:
-      - node
-#    For deploying to server use ports: - 80:80
-    ports:
-      - 80:80
+#  app:
+#    build: frontend
+#    depends_on:
+#      - node
+##    For deploying to server use ports: - 80:80
+#    ports:
+#      - 80:80
   node:
     build: backend
     env_file:

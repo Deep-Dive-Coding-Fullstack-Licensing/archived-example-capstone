@@ -1,29 +1,32 @@
 import express, { Application } from 'express'
-import TweetRoute from './apis/tweet/tweet.route.js'
-import SignupRoute from './apis/sign-up/signup.route.js'
-import LikeRoute from './apis/like/like.route.js'
+import TweetRoute from './apis/tweet/tweet.route'
+import SignupRoute from './apis/sign-up/signup.route'
+import LikeRoute from './apis/like/like.route'
 import morgan from 'morgan'
 
 // Routes
-import IndexRoutes from './apis/index.route.js'
-import { SignInRouter } from './apis/sign-in/sign-in.route.js'
-import { SignOutRoute } from './apis/sign-out/sign-out.route.js'
-import { ProfileRoute } from './apis/profile/profile.route.js'
-import { ImageUploadRouter } from './apis/image-upload/image-upload.route.js'
+import IndexRoutes from './apis/index.route'
+import { SignInRouter } from './apis/sign-in/sign-in.route'
+import { SignOutRoute } from './apis/sign-out/sign-out.route'
+import { ProfileRoute } from './apis/profile/profile.route'
+import { ImageUploadRouter } from './apis/image-upload/image-upload.route'
 import session from 'express-session'
 import { createClient, RedisClientType } from 'redis'
-import RedisConnect from "connect-redis"
-const redisClient = createClient({legacyMode: true, socket:{host: process.env.REDIS_HOST}})
-redisClient.connect().catch(console.error)
-const RedisStore = RedisConnect(session)
+import RedisStore from 'connect-redis'
 
 // The following class creates the frontend and instantiates the server
 export class App {
   app: Application
+  redisClient: RedisClientType
+  redisStore : RedisStore
 
   constructor (
     private readonly port: number
   ) {
+    this.redisClient = createClient({ legacyMode: true, socket: { host: process.env.REDIS_HOST } })
+    this.redisClient.connect().catch(console.error)
+
+    this.redisStore = new RedisStore({client: this.redisClient})
     this.app = express()
     this.settings()
     this.middlewares()
@@ -37,15 +40,17 @@ export class App {
 
   // private method to setting up the middleware to handle json responses, one for dev and one for prod
   private middlewares (): void {
-    const sessionConfig = {
-      store: new RedisStore({ client: redisClient, host: process.env.REDIS_HOST, port: 6379}),
-      saveUninitialized: false,
-      secret: process.env.SESSION_SECRET as string,
-      resave: false,
-    }
+
     this.app.use(morgan('dev'))
     this.app.use(express.json())
-    this.app.use(session(sessionConfig))
+    this.app.use(
+      this.app.use(session( {
+      store: this.redisStore,
+      saveUninitialized: false,
+      secret: process.env.SESSION_SECRET as string,
+      resave: false
+
+    })))
   }
 
   // private method for setting up routes in their basic sense (ie. any route that performs an action on profiles starts with /profiles)

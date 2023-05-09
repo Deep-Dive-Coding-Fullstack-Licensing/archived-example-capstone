@@ -7,9 +7,9 @@ ENV PORT $PORT
 EXPOSE $PORT 9229 9230
 
 WORKDIR ./home/node/app
-COPY package.json package-lock.json ./
+COPY package*.json ./
 COPY tsconfig.json ./
 RUN chown node:node -R ./
 USER node
-RUN npm install --no-optional && npm cache clean --force
+RUN npm install --no-optional
 CMD ["npm", "run", "dev"]
