@@ -20,10 +20,10 @@ export async function deleteLike (like: Like): Promise<string> {
 
 export async function selectLikeByLikeId (like: Like): Promise<Like|null> {
   const {likeProfileId, likeTweetId} = like
-  const result = <Like[]> await sql`SELECT like_profile_id, like_tweet_id, like_date FROM "like" WHERE like_profile_id = ${likeProfileId} AND like_tweet_id = ${likeTweetId}`
+  const result =  await sql<Like[]>`SELECT like_profile_id, like_tweet_id, like_date FROM "like" WHERE like_profile_id = ${likeProfileId} AND like_tweet_id = ${likeTweetId}`
   return result?.length === 1 ? result[0] : null
 }
 
 export async function selectLikesByLikeTweetId (likeTweetId: string): Promise<Like[]> {
-  return <Like[]> await sql`SELECT like_profile_id, like_tweet_id, like_date FROM "like" WHERE like_tweet_id = ${likeTweetId}`
+  return  await sql<Like[]>`SELECT like_profile_id, like_tweet_id, like_date FROM "like" WHERE like_tweet_id = ${likeTweetId}`
 }
