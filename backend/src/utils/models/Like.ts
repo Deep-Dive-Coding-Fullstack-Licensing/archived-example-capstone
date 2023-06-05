@@ -25,5 +25,5 @@ export async function selectLikeByLikeId (like: Like): Promise<Like|null> {
 }
 
 export async function selectLikesByLikeTweetId (likeTweetId: string): Promise<Like[]> {
-  return <Like[]> await sql`SELECT like_profile_id, like_tweet_id, like_date FROM "like" WHERE like_tweet_id = ${likeTweetId}`
+  return sql <Like[]> `SELECT like_profile_id, like_tweet_id, like_date FROM "like" WHERE like_tweet_id = ${likeTweetId}`
 }

@@ -5,7 +5,8 @@ import { insertProfile, Profile } from '../../utils/models/Profile'
 import { Status } from '../../utils/interfaces/Status'
 import formData from 'form-data'
 import Mailgun from 'mailgun.js'
-import Client from 'mailgun.js/dist/lib/client'
+import Client from 'mailgun.js/client'
+
 
 export async function signupProfileController (request: Request, response: Response): Promise<Response | undefined> {
   try {

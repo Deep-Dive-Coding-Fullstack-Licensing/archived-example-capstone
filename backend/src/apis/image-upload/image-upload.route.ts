@@ -3,7 +3,7 @@ import { Router } from 'express'
 import { imageUploader } from '../../utils/controllers/multer.controller'
 import { imageUploadController } from './image-upload.contoller'
 
-export const ImageUploadRouter = Router()
+export const imageUploadRoute = Router()
 
-ImageUploadRouter.route('/')
+imageUploadRoute.route('/')
   .post(imageUploader, imageUploadController)

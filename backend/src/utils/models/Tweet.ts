@@ -14,7 +14,7 @@ export async function insertTweet (tweet: Tweet): Promise<string> {
 }
 
 export async function selectAllTweets (): Promise<Tweet[]> {
-  return <Tweet[]> await sql`SELECT tweet_id, tweet_profile_id, tweet_content, tweet_date FROM tweet ORDER BY tweet_date DESC`
+  return await sql <Tweet[]>`SELECT tweet_id, tweet_profile_id, tweet_content, tweet_date FROM tweet ORDER BY tweet_date DESC`
 }
 
 export async function selectTweetByTweetId (tweetId: string): Promise<Tweet|null> {

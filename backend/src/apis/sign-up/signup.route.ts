@@ -5,18 +5,18 @@ import { asyncValidatorController } from '../../utils/controllers/asyncValidator
 import { activationController } from './activation.controller'
 import { param, checkSchema } from 'express-validator'
 
-const router: Router = Router()
+export const signUpRoute: Router = Router()
 
-router.route('/')
+signUpRoute.route('/')
   .post(
     asyncValidatorController(checkSchema(signupValidator)),
     signupProfileController
   )
 
-router.route('/activation/:activation')
+signUpRoute.route('/activation/:activation')
   .get(
     asyncValidatorController([param('activation', 'invalid activation link').isHexadecimal().notEmpty()]),
     activationController
   )
 
-export default router
+
