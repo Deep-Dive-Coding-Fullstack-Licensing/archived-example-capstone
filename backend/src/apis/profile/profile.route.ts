@@ -5,11 +5,11 @@ import { check, checkSchema } from 'express-validator'
 import { isLoggedIn } from '../../utils/controllers/isLoggedIn.controller'
 import { profileValidator } from './profile.validator'
 
-export const ProfileRoute: Router = Router()
-ProfileRoute.route('/')
+export const profileRoute: Router = Router()
+profileRoute.route('/')
   .post(putProfileController)
 
-ProfileRoute.route('/:profileId')
+profileRoute.route('/:profileId')
   .get(
     asyncValidatorController([
       check('profileId', 'please provide a valid profileId').isUUID()

@@ -11,18 +11,17 @@ import { check, checkSchema } from 'express-validator'
 import { isLoggedIn } from '../../utils/controllers/isLoggedIn.controller'
 import { tweetValidator } from './tweet.validator'
 
-const router = Router()
-router.route('/:tweetId').get(asyncValidatorController([
+export const tweetRoute = Router()
+tweetRoute.route('/:tweetId').get(asyncValidatorController([
   check('tweetId', 'please provide a valid tweetId').isUUID()
 ]), getTweetByTweetIdController)
 
-router.route('/tweetProfileId/:tweetProfileId').get(asyncValidatorController([
+tweetRoute.route('/tweetProfileId/:tweetProfileId').get(asyncValidatorController([
   check('tweetProfileId', 'please provide a valid tweetProfileId').isUUID()
 ]), getTweetsByTweetProfileIdController)
 
 // Every new route is instantiated below. It will include the controller name and the type of action (get, post, delete, put, patch)
-router.route('/')
+tweetRoute.route('/')
   .get(getAllTweetsController)
   .post(isLoggedIn,asyncValidatorController(checkSchema((tweetValidator))) ,postTweet)
 
-export default router

@@ -35,7 +35,6 @@ services:
     user: "node"
     volumes:
       - ./backend/src:/home/node/app/src
-      - ./backend/tsconfig.json:/home/node/app/tsconfig.json
 volumes:
   sql:
     driver: local
