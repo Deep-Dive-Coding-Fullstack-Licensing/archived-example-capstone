@@ -1,5 +1,6 @@
 import {createSlice} from '@reduxjs/toolkit'
-import { httpConfig } from '../ui/shared/utils/httpConfig'
+import { httpConfig } from '../shared/utils/http-config.js'
+
 
 const slice = createSlice({
   name: "profiles",
@@ -17,7 +18,6 @@ export const fetchProfileByProfileId = (profileId) => async (dispatch, getState)
   const state = getState()
 
   const profiles = state.profiles
-  console.log(profiles[profileId])
   if(profiles[profileId] === undefined){
     const{data} = await httpConfig(`/apis/profile/${profileId}`)
     dispatch(setProfile({profileId, data}))
