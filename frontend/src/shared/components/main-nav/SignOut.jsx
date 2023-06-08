@@ -3,7 +3,7 @@ import {useDispatch} from 'react-redux'
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { httpConfig } from '../../utils/http-config.js'
-import { getAuth } from '../../../store/auth.js'
+import { getAuth } from '../../../store/auth.ts'
 
 export const SignOutComponent = () => {
 	const dispatch = useDispatch()

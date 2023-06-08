@@ -1,51 +1,59 @@
-import React from 'react';
-import {Formik} from "formik";
-import * as Yup from "yup";
-import {useDispatch} from "react-redux";
-import jwtDecode from 'jwt-decode'
+import { Formik, FormikHelpers, FormikProps } from 'formik'
+import {object, string} from "yup";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-
 import { Button, Form, FormControl, InputGroup } from 'react-bootstrap'
-import { httpConfig } from '../../../utils/http-config'
 import { DisplayStatus } from '../../display-status/DisplayStatus'
 import { DisplayError } from '../../display-error/DisplayError'
+import { SignIn } from '../../../interfaces/Profile.ts'
+import { AppDispatch, useAppDispatch } from '../../../../store/store.ts'
+import { ClientResponseForSignIn, usePostSignInMutation } from '../../../../store/apis.ts'
+import { getAuth, JwtToken } from '../../../../store/auth.ts'
+import jwtDecode from 'jwt-decode'
 
 
 
 export const SignInForm = () => {
+	const [submitRequest] = usePostSignInMutation()
+	const dispatch: AppDispatch = useAppDispatch()
 
-	const dispatch = useDispatch()
-
-	const validator = Yup.object().shape({
-		profileEmail: Yup.string()
+	const validator = object().shape({
+		profileEmail: string()
 			.email("please provide a valid email")
 			.required('email is required'),
-		profilePassword: Yup.string()
+		profilePassword: string()
 			.required("password is required")
 			.min(8, "password must be at least eight characters")
 	});
 
 
 	//the initial values object defines what the request payload is.
-	const signIn = {
+	const signIn: SignIn = {
 		profileEmail: "",
 		profilePassword: ""
 	};
 
-	const submitSignIn = (values, {resetForm, setStatus}) => {
-		httpConfig.post("/apis/sign-in/", values)
-			.then(reply => {
-				let {message, type} = reply;
-				setStatus({message, type});
-				if(reply.status === 200 && reply.headers["authorization"]) {
-					window.localStorage.removeItem("authorization");
-					window.localStorage.setItem("authorization", reply.headers["authorization"]);
-					resetForm();
-					let jwtToken = jwtDecode(reply.headers["authorization"])
-					dispatch(getAuth(jwtToken))
-				}
-				setStatus({message, type});
-			});
+	const submitSignIn = async (values: SignIn, formikHelpers: FormikHelpers<SignIn>) => {
+		const {resetForm, setStatus} = formikHelpers
+		const result = await submitRequest(values)
+		const {data: response, error} = result as {data: ClientResponseForSignIn, error: ClientResponseForSignIn}
+		if(error) {
+			setStatus({type: error.type, message: error.message})
+		}
+		else if(response?.status === 200) {
+			window.localStorage.removeItem("authorization");
+			window.localStorage.setItem("authorization", response.authorization as string);
+			const decodedToken = jwtDecode<JwtToken>(response.authorization as string)
+			dispatch(getAuth(decodedToken))
+			resetForm()
+			setStatus({type: response.type, message: response.message})
+
+		} else {
+			setStatus({type: response?.type,  message: response?.message})
+		}
+
+
+
+
 	};
 
 	return (
@@ -61,7 +69,7 @@ export const SignInForm = () => {
 	)
 };
 
-function SignInFormContent(props) {
+function SignInFormContent(props: FormikProps<SignIn>) {
 	const {
 		status,
 		values,
@@ -110,7 +118,7 @@ function SignInFormContent(props) {
 							<FormControl
 								className="form-control"
 								name="profilePassword"
-								type="text"
+								type="password"
 								value={values.profilePassword}
 								placeholder="p@ssword1"
 								onChange={handleChange}

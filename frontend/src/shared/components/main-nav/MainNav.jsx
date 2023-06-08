@@ -11,7 +11,7 @@ import {Link} from "react-router-dom";
 import {useDispatch, useSelector} from "react-redux";
 
 import { SignOutComponent } from './SignOut.jsx'
-import { fetchAuth } from '../../../store/auth.js'
+import { fetchAuth } from '../../../store/auth.ts'
 
 
 export const MainNav = () => {

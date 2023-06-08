@@ -1,7 +1,7 @@
 import React from "react";
 import {Button} from "react-bootstrap";
 import {Modal} from "react-bootstrap";
-import {SignInForm} from "./SignInForm.jsx";
+import {SignInForm} from "./SignInForm.tsx";
 
 
 export const SigninModal = (props) => {
