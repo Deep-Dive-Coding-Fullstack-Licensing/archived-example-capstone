@@ -1,50 +1,58 @@
-import React from 'react';
-import * as Yup from "yup";
-import {Formik} from "formik";
+
+import {string, object} from "yup";
+import {Formik, FormikHelpers, FormikProps} from "formik";
 import { Button, Form, FormControl, InputGroup } from 'react-bootstrap'
 import {FontAwesomeIcon} from '@fortawesome/react-fontawesome'
 import { DisplayError } from '../../display-error/DisplayError'
 import { DisplayStatus } from '../../display-status/DisplayStatus'
-import { httpConfig } from '../../../utils/http-config.js'
+import {ClientResponseForSignIn, MutationResponse, usePostSignUpMutation} from "../../../../store/apis.ts";
+import {SignUp} from "../../../interfaces/Profile.ts";
 
 export const SignUpForm = () => {
-	const signUp = {
+	const signUp: SignUp = {
 		profileEmail: "",
 		profileAtHandle: "",
 		profilePassword: "",
 		profilePasswordConfirm: "",
 		profilePhone: "",
-		profileAvatar: "",
+		profileAvatarUrl: null,
 	};
 
-	const validator = Yup.object().shape({
-		profileEmail: Yup.string()
+	const [submitRequest] = usePostSignUpMutation();
+
+	const validator = object().shape({
+		profileEmail: string()
 			.email("email must be a valid email")
 			.required('email is required'),
-		profileAtHandle: Yup.string()
+		profileAtHandle: string()
 			.required("profile handle is required"),
-		profilePassword: Yup.string()
+		profilePassword: string()
 			.required("Password is required")
 			.min(8, "Password must be at least eight characters"),
-		profilePasswordConfirm: Yup.string()
+		profilePasswordConfirm: string()
 			.required("Password Confirm is required")
 			.min(8, "Password must be at least eight characters"),
-		profilePhone: Yup.string()
+		profilePhone: string()
 			.min(10, "phone number is to short")
 			.max(10, "phone Number is to long")
 	});
 
-	const submitSignUp = (values, {resetForm, setStatus}) => {
-		httpConfig.post("/apis/sign-up/", values)
-			.then(reply => {
-					let {message, type} = reply;
-					
-					if(reply.status === 200) {
-						resetForm();
-					}
-					setStatus({message, type});
-				}
-			);
+	const submitSignUp =  async (values: SignUp, formikHelpers: FormikHelpers<SignUp>) => {
+		const {resetForm, setStatus} = formikHelpers;
+
+		const result = await submitRequest(values) as MutationResponse
+		const {
+			data: response, error} = result as {data: ClientResponseForSignIn, error: ClientResponseForSignIn}
+		if(error) {
+			setStatus({type: error.type, message: error.message})
+		}
+		else if(response?.status === 200) {
+			resetForm()
+			setStatus({type: response.type, message: response.message})
+
+		} else {
+			setStatus({type: response?.type,  message: response?.message})
+		}
 	};
 
 
@@ -60,7 +68,7 @@ export const SignUpForm = () => {
 
 	)
 };
-function  SignUpFormContent(props){
+function  SignUpFormContent(props: FormikProps<SignUp>){
 	const {
 		status,
 		values,

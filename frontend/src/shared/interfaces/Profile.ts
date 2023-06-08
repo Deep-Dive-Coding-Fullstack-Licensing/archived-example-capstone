@@ -5,7 +5,7 @@ export interface Profile extends PartialProfile{
 export interface PartialProfile {
 
   profileAtHandle: string
-  profileAvatarUrl: string
+  profileAvatarUrl: string|null
   profileEmail: string
   profilePhone: string
 }
@@ -14,4 +14,7 @@ export interface SignIn {
   profileEmail: string,
   profilePassword: string
 }
-
+export interface SignUp extends PartialProfile{
+    profilePassword: string,
+    profilePasswordConfirm: string
+}

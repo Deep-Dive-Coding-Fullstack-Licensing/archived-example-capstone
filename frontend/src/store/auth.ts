@@ -1,4 +1,4 @@
-import { AnyAction, createSlice } from '@reduxjs/toolkit'
+import { createSlice } from '@reduxjs/toolkit'
 import jwtDecode from "jwt-decode";
 import { AppDispatch, RootState } from './store.ts'
 import { Profile } from '../shared/interfaces/Profile.ts'

@@ -12,9 +12,15 @@ import { configureStore,combineReducers} from '@reduxjs/toolkit'
 import { apis } from './apis'
 import { ToolkitStore } from '@reduxjs/toolkit/dist/configureStore'
 import { TypedUseSelectorHook, useDispatch, useSelector } from 'react-redux'
+import { setupListeners } from '@reduxjs/toolkit/query'
 
 const reducer = combineReducers({auth, likes, currentUser, tweets, profiles, api: apis.reducer})
-export const store: ToolkitStore =configureStore({reducer});
+export const store: ToolkitStore =configureStore({
+  reducer,
+  middleware:(getDefaultMiddleware) => getDefaultMiddleware().concat(apis.middleware)
+});
+
+setupListeners(store.dispatch)
 
 export type RootState = ReturnType<typeof store.getState>
 export type AppDispatch = typeof store.dispatch

@@ -1,7 +1,7 @@
 import { createSlice } from "@reduxjs/toolkit";
 import { fetchLikesByLikeTweetId } from './likes'
 import { fetchProfileByProfileId } from './profiles'
-import { httpConfig } from '../shared/utils/http-config.js'
+import { httpConfig } from '../shared/utils/http-config.ts'
 
 const slice = createSlice({
 	name: "tweets",

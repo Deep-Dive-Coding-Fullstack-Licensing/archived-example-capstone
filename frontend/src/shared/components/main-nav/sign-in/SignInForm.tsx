@@ -35,7 +35,8 @@ export const SignInForm = () => {
 	const submitSignIn = async (values: SignIn, formikHelpers: FormikHelpers<SignIn>) => {
 		const {resetForm, setStatus} = formikHelpers
 		const result = await submitRequest(values)
-		const {data: response, error} = result as {data: ClientResponseForSignIn, error: ClientResponseForSignIn}
+		const {
+			data: response, error} = result as {data: ClientResponseForSignIn, error: ClientResponseForSignIn}
 		if(error) {
 			setStatus({type: error.type, message: error.message})
 		}

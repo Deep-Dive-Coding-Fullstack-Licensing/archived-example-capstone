@@ -1,27 +1,22 @@
-import React, {useState, useEffect} from "react";
+import {useState} from "react";
 import Navbar from "react-bootstrap/Navbar";
 import Nav from "react-bootstrap/Nav";
-import {LinkContainer} from "react-router-bootstrap"
-import {SignUpModal} from "./sign-up/SignUpModal.jsx";
-import {SigninModal} from "./sign-in/SigninModal.jsx";
+import {SignUpModal} from "./sign-up/SignUpModal.tsx";
+import {SigninModal} from "./sign-in/SigninModal.tsx";
 import {Container} from "react-bootstrap";
 import NavDropdown from "react-bootstrap/NavDropdown";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import {Link} from "react-router-dom";
-import {useDispatch, useSelector} from "react-redux";
+import { SignOutComponent } from './SignOut.tsx'
+import { useJwtToken } from '../../hooks/useJwtHook.js'
 
-import { SignOutComponent } from './SignOut.jsx'
-import { fetchAuth } from '../../../store/auth.ts'
 
 
 export const MainNav = () => {
 
-	const auth = useSelector(state => state.auth);
-	const dispatch = useDispatch()
-	const effects = () => {
-    dispatch(fetchAuth());
-	};
-	useEffect(effects, [dispatch]);
+	const {profile } = useJwtToken()
+
+
 
 	const [show, setShow] = useState(false);
 
@@ -31,9 +26,9 @@ export const MainNav = () => {
 	// isModalOpen prevents the sign in modal being removed from the dom before the
 	// sign-in modal is closed by the user
 	const isModalOpen = ()=> {
-		if(!auth) {
-			return !auth
-		} else if(show === true && auth  ) {
+		if(!profile) {
+			return !profile
+		} else if(show && profile  ) {
 			return true
 		}
 	}
@@ -41,17 +36,19 @@ export const MainNav = () => {
 	return(
 		<Navbar bg="primary" variant="dark">
 			<Container>
-			<LinkContainer to="/" >
-				<Navbar.Brand>Tweeter</Navbar.Brand>
-			</LinkContainer>
+
+				<Link className={"nav-link"} to="/">
+					<Navbar.Brand>Tweeter</Navbar.Brand>
+
+				</Link>
 			<Nav className="mr-auto">
 
 				{/* conditional render if user has jwt / is logged in */}
-				{auth !== null && (
+				{profile !== null && (
 					<>
-					<NavDropdown className="nav-link navbar-username" title={auth?.profileAtHandle ?? ""} >
+					<NavDropdown className="nav-link navbar-username" title={profile.profileAtHandle} >
 						<div className="dropdown-item">
-							<Link to={`/profile/${auth?.profileId}`} className="btn btn-outline-dark">
+							<Link to={`/profile/${profile?.profileId}`} className="btn btn-outline-dark">
 								<FontAwesomeIcon icon="user" />&nbsp;&nbsp;My Profile
 							</Link>
 						</div>

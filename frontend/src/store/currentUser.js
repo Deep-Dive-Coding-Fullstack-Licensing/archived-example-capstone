@@ -1,6 +1,6 @@
 import { createSlice } from '@reduxjs/toolkit'
 import { fetchAuth } from './auth'
-import { httpConfig } from '../shared/utils/http-config.js'
+import { httpConfig } from '../shared/utils/http-config.ts'
 
 
 const currentUserSlice = createSlice({

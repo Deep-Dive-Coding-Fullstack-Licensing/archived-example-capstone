@@ -1,5 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { httpConfig } from '../shared/utils/http-config.js'
+import { httpConfig } from '../shared/utils/http-config.ts'
 
 const slice = createSlice({
   name: "likes",

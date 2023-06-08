@@ -1,10 +1,15 @@
-import React from "react";
+
 import {Button} from "react-bootstrap";
 import {Modal} from "react-bootstrap";
 import {SignInForm} from "./SignInForm.tsx";
 
+export interface SignInModalProps {
+	handleShow: () => void,
+	handleClose: () => void,
+	show: boolean
+}
 
-export const SigninModal = (props) => {
+export const SigninModal = (props: SignInModalProps) => {
 	const {handleShow, handleClose, show} = props
 
 

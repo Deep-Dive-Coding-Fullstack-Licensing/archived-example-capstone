@@ -16,7 +16,7 @@ import {
   faSignOutAlt,
   faStroopwafel, faUser,
 } from '@fortawesome/free-solid-svg-icons'
-import { MainNav } from '../shared/components/main-nav/MainNav.jsx'
+import { MainNav } from '../shared/components/main-nav/MainNav.tsx'
 
 library.add(faStroopwafel, faEnvelope, faKey, faDove, faPhone, faPencilAlt, faSignOutAlt, faUser);
 

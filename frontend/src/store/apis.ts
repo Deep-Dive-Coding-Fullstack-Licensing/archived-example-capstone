@@ -1,6 +1,6 @@
 import { createApi, fetchBaseQuery, } from '@reduxjs/toolkit/query/react'
 import { PartialTweet, Tweet } from '../shared/interfaces/Tweet.ts'
-import { SignIn } from '../shared/interfaces/Profile.ts'
+import {PartialProfile, SignIn} from '../shared/interfaces/Profile.ts'
 
 export interface ServerResponse {
   status: number,
@@ -31,7 +31,10 @@ export const apis = createApi({
       transformResponse: (response: { data: Tweet[] }) => response.data,
       providesTags: ['Tweet']
     }),
+
     postTweet: builder.mutation<ClientResponse, PartialTweet>({
+      transformResponse: transformMutationResponses,
+      transformErrorResponse: transformErrorResponses,
       query (body: PartialTweet) {
         return {
           url: '/tweet',
@@ -39,8 +42,7 @@ export const apis = createApi({
           body
         }
       },
-      transformResponse: transformMutationResponses,
-      transformErrorResponse: transformErrorResponses,
+
       invalidatesTags: ['Tweet']
     }),
     postSignIn: builder.mutation<ClientResponseForSignIn, SignIn>({
@@ -73,8 +75,19 @@ export const apis = createApi({
           authorization
         }
       }
-    })
+    }),
+    PostSignUp: builder.mutation<ClientResponse, PartialProfile>({
+      transformResponse: transformMutationResponses,
+      transformErrorResponse: transformErrorResponses,
+      query (body: PartialProfile) {
+        return {
+          url: '/sign-up',
+          method: 'POST',
+          body
+        }
+    }
   })
+})
 })
 
 function transformMutationResponses (response: ServerResponse): ClientResponse {
@@ -103,4 +116,4 @@ function transformErrorResponses (): ClientResponse {
   }
 }
 
-export const { useGetAllTweetsQuery, usePostTweetMutation, usePostSignInMutation } = apis
+export const { useGetAllTweetsQuery, usePostTweetMutation, usePostSignInMutation, usePostSignUpMutation } = apis

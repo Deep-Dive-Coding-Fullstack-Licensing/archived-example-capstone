@@ -1,7 +1,7 @@
-import React, {useState} from "react";
+import  {useState} from "react";
 import {Button} from "react-bootstrap";
 import {Modal} from "react-bootstrap";
-import {SignUpForm} from "./SignUpForm.jsx";
+import {SignUpForm} from "./SignUpForm.tsx";
 
 
 export const SignUpModal = () => {
