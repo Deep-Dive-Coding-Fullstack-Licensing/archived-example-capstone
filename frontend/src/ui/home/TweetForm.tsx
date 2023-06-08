@@ -1,43 +1,55 @@
-import React from 'react';
+
 import * as Yup from "yup";
-import {Formik} from "formik";
-import { useSelector, useDispatch } from 'react-redux'
-import {fetchAllTweets} from "../../store/tweets";
+import {Formik, FormikHelpers, FormikProps} from "formik";
+
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { Form, FormControl, InputGroup } from 'react-bootstrap'
-import { httpConfig } from '../../shared/utils/http-config'
+
 import { DisplayError } from '../../shared/components/display-error/DisplayError'
 import { DisplayStatus } from '../../shared/components/display-status/DisplayStatus'
+import { useJwtToken } from '../../shared/hooks/useJwtHook.js'
+import {MutationResponse, usePostTweetMutation} from '../../store/apis.js'
+import {PartialTweet} from "../../shared/interfaces/Tweet.ts";
+
 
 
 export const TweetForm = () => {
+
+	const [submit] = usePostTweetMutation()
 	const tweet = {
 		tweetContent: "",
+		tweetProfileId: ""
 	};
 
-	const dispatch = useDispatch()
-
-	const auth = useSelector(state => state.auth ? state.auth : null);
-
+	const {profile} = useJwtToken()
 	const validator = Yup.object().shape({
 		tweetContent: Yup.string()
 			.required("tweet content is required"),
 	});
 
-	const submitTweet = (values, {resetForm, setStatus}) => {
-		const tweetProfileId = auth?.profileId ?? null
-		const tweet = {tweetProfileId, ...values}
-			httpConfig.post("/apis/tweet/", tweet)
-			.then(reply => {
-					let {message, type} = reply;
+	const submitTweet =async (values: PartialTweet, formikHelpers: FormikHelpers<PartialTweet>) => {
 
-					if(reply.status === 200) {
-						resetForm();
-						dispatch(fetchAllTweets())
-					}
-					setStatus({message, type});
-				}
-			);
+
+		const {resetForm, setStatus} = formikHelpers
+		const tweetProfileId = profile?.profileId ?? ""
+		const tweet: PartialTweet = {tweetProfileId: tweetProfileId, tweetContent: values.tweetContent}
+
+		const result = await submit(tweet) as MutationResponse
+
+		const {
+			data: response, error} = result
+
+		if(error) {
+			setStatus({type: error.type, message: error.message})
+		}
+		else if(response?.status === 200) {
+			resetForm()
+			setStatus({type: response.type, message: response.message})
+
+		} else {
+			setStatus({type: response?.type,  message: response?.message})
+		}
+
 	};
 
 
@@ -53,7 +65,7 @@ export const TweetForm = () => {
 	)
 };
 
-function TweetFormContent(props) {
+function TweetFormContent(props: FormikProps<PartialTweet>) {
 	const {
 		status,
 		values,

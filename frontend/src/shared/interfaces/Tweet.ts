@@ -1,12 +1,12 @@
 
 export interface Tweet extends PartialTweet{
-  tweetId: string|null
+  tweetId: string,
+  tweetDate: string
 
 }
 
 export interface PartialTweet {
   tweetProfileId: string
   tweetContent: string
-  tweetDate: Date|null
 }
 

@@ -1,6 +1,7 @@
 import { createApi, fetchBaseQuery, } from '@reduxjs/toolkit/query/react'
 import { PartialTweet, Tweet } from '../shared/interfaces/Tweet.ts'
-import {PartialProfile, SignIn} from '../shared/interfaces/Profile.ts'
+import {PartialProfile, Profile, SignIn} from '../shared/interfaces/Profile.ts'
+import {Like, PartialLike} from "../shared/interfaces/Like.ts";
 
 export interface ServerResponse {
   status: number,
@@ -26,6 +27,27 @@ export const apis = createApi({
   baseQuery: fetchBaseQuery({ baseUrl: '/apis' }),
   tagTypes: ['Tweet'],
   endpoints: (builder) => ({
+
+    getLikesByLikeTweetId: builder.query<Like[], string>({
+      query: (tweetId) => `/like/likeTweetId/${tweetId}`,
+      transformResponse:transformResponse<Like[]>,
+      providesTags: ['Tweet']
+
+}),
+    toggleLike: builder.mutation<ClientResponse, PartialLike>({
+      transformResponse: transformMutationResponses,
+      transformErrorResponse: transformErrorResponses,
+      query (body: PartialLike) {
+        return {
+          url: '/like',
+          method: 'POST',
+          body
+        }
+      },}),
+    getProfileByProfileId: builder.query<Profile, string>({
+        query: (profileId) => `/profile/${profileId}`,
+      transformResponse:transformResponse<Profile>
+    }),
     getAllTweets: builder.query<Tweet[], string>({
       query: () => '/tweet',
       transformResponse: (response: { data: Tweet[] }) => response.data,
@@ -116,4 +138,16 @@ function transformErrorResponses (): ClientResponse {
   }
 }
 
-export const { useGetAllTweetsQuery, usePostTweetMutation, usePostSignInMutation, usePostSignUpMutation } = apis
+//create a function that includes a generic type for transformResponse
+function transformResponse<T> (response: ServerResponse): T {
+  return response.data as T
+}
+
+export const {
+  useGetAllTweetsQuery, usePostTweetMutation,
+  useGetProfileByProfileIdQuery,
+  usePostSignInMutation,
+  usePostSignUpMutation,
+    useGetLikesByLikeTweetIdQuery,
+   useToggleLikeMutation
+} = apis

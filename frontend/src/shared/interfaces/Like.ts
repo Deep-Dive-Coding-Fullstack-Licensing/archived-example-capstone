@@ -3,3 +3,7 @@ export interface Like {
   likeTweetId: string | null
   likeDate: Date | null
 }
+
+export interface PartialLike {
+  likeTweetId: string,
+}
