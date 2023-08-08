@@ -5,7 +5,7 @@ import { Container, Row, Col} from 'react-bootstrap'
 import {useGetAllTweetsQuery} from "../../store/apis.ts";
 
 
-export function Home() {
+export function LandingPage() {
 
   const {data: tweets, isLoading, error } = useGetAllTweetsQuery("");
 console.log(tweets)

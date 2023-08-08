@@ -22,7 +22,7 @@ export function useJwtToken (): { profile: Profile | null, isLoading: boolean } 
       profileId: auth.profileId,
       profileEmail: auth.profileEmail,
       profilePhone: auth.profilePhone,
-      profileAtHandle: auth,
+      profileAtHandle: auth.profileAtHandle,
       profileAvatarUrl: auth.profileAvatarUrl
     }
     : null

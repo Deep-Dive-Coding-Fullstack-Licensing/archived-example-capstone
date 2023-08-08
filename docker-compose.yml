@@ -34,7 +34,7 @@ services:
       - 8080:4200
     user: "node"
     volumes:
-      - ./backend/src:/home/node/app/src
+      - ./backend/src:/feed/node/app/src
 volumes:
   sql:
     driver: local
